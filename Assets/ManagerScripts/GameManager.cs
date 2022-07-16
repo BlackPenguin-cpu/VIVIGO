@@ -12,6 +12,8 @@ public class GameManager : SingletonManager<GameManager>
 
     public GameObject keyPrefab;
 
+    public GameObject lockPrefab;
+
     public ArrowKeyManager arrowKeyManager;
 
     public void CreatePlayer(Vector3 worldPosition)
@@ -28,8 +30,12 @@ public class GameManager : SingletonManager<GameManager>
 
     public void CreateKey(Vector3 worldPosition)
     {
-        var go = Instantiate(keyPrefab, worldPosition, new Quaternion());
-        
+        var go = Instantiate(keyPrefab, worldPosition, new Quaternion());   
+    }
+
+    public void CreateLock(Vector3 worldPosition)
+    {
+        var go = Instantiate(lockPrefab, worldPosition, new Quaternion());
     }
 
     public Player GetPlayerObject()

@@ -49,6 +49,9 @@ public class WorldTilemap : MonoBehaviour
                 case TILE_TYPE.KEY:
                     GameManager.Instance.CreateKey(node.WorldPosition);
                     break;
+                case TILE_TYPE.LOCK:
+                    GameManager.Instance.CreateLock(node.WorldPosition);
+                    break;
                 default:
                     break;
             }

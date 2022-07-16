@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyObject : MonoBehaviour
+public class LockObject : MonoBehaviour
 {
     public Vector3 WorldPosition;
 
@@ -12,9 +12,11 @@ public class KeyObject : MonoBehaviour
         if (collision.tag == "Player")
         {
             var player = collision.gameObject.GetComponent<Player>();
-            player.HasKey = true;
-
-            Destroy(this.gameObject);
+            if (player.HasKey)
+            {
+                player.HasKey = false;
+                Destroy(this.gameObject);
+            }
         }
     }
 }
