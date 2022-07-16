@@ -46,7 +46,7 @@ public class PathfindManager : SingletonManager<PathfindManager>
         {
             // var list = GetNeighborNodes(new Vector3(-2.5f, -1f, 0));
             // Debug.Log(list.Count);
-            var path = GetPath(StartNode.WorldPosition, EndNode.WorldPosition);
+            var path = GetPath(GameManager.Instance.GetPlayerObject().transform.position, EndNode.WorldPosition);
             if (path != null)
             {
 
@@ -154,8 +154,6 @@ public class PathfindManager : SingletonManager<PathfindManager>
                 path.Add(current);
                 current = current.ExploredFrom;
             }
-
-            Debug.Log(path.Count);
             path.Add(start);
             path.Reverse();
             return path;
@@ -180,7 +178,6 @@ public class PathfindManager : SingletonManager<PathfindManager>
         {
             //var scaledPosition = new Vector3(nextPositions.x * XSize, nextPositions.y * YSize, 0);
             var position = currentPosition + nextPositions;
-            Debug.Log(position.x + ", " + position.y + ", " + position.z);
             if (!worldTilemap.nodes.ContainsKey(position)) continue;
             
             Debug.Log(position.x + ", " + position.y + "좌표의 타일을 리스트에 넣는다.");
