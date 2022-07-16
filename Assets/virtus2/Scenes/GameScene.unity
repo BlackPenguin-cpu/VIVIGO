@@ -566,6 +566,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrowKeys: 0000000000000000000000000000000000000000
   Player: {fileID: 0}
+  ArrowKeyParentObj: {fileID: 1936450111}
+  ArrowKeyObj: []
 --- !u!4 &343310757
 Transform:
   m_ObjectHideFlags: 0
@@ -1451,7 +1453,7 @@ GameObject:
   - component: {fileID: 1143182495}
   m_Layer: 5
   m_Name: "\uBC29\uD5A5\uD0A4 \uB9AC\uC2A4\uD2B8"
-  m_TagString: Untagged
+  m_TagString: ArrowKeyList
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
