@@ -13,10 +13,13 @@ public class ArrowKeyManager : MonoBehaviour
 {
     public List<ArrowKey> arrowKeys = new List<ArrowKey>(5);
     public GameObject Player;
+    public GameObject ArrowKeyParentObj;
+    public GameObject[] ArrowKeyObj;
 
     private void Start()
     {
         ReRoll();
+        PannalSetting();
     }
     private void Update()
     {
@@ -41,6 +44,18 @@ public class ArrowKeyManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.S))
         {
             MoveAction(3);
+        }
+    }
+    private void PannalSetting()
+    {
+        for (int i = 0; i < ArrowKeyParentObj.transform.childCount; i++)
+        {
+            Destroy(ArrowKeyParentObj.transform.GetChild(i).gameObject);
+        }
+
+        for (int i = 0; i < arrowKeys.Count; i++)
+        {
+            Instantiate(ArrowKeyObj[(int)arrowKeys[i]], ArrowKeyParentObj.transform);
         }
     }
     public void MoveAction(int index)
@@ -80,6 +95,7 @@ public class ArrowKeyManager : MonoBehaviour
         {
             Player.transform.position += (Vector3)dir;
         }
+        PannalSetting();
 
     }
     public void ReRoll()
@@ -90,5 +106,6 @@ public class ArrowKeyManager : MonoBehaviour
         {
             arrowKeys.Add((ArrowKey)Random.Range(0, 4));
         }
+        PannalSetting();
     }
 }
