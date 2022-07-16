@@ -9,7 +9,8 @@ public enum TILE_TYPE
     OBSTACLE,
     MUD,
     ICE,
-    LOCK
+    LOCK,
+    GOAL,
 }
 [CreateAssetMenu]
 public class CustomTile : Tile
