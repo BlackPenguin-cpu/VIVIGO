@@ -1,28 +1,49 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.Tilemaps;
+using Vector3 = UnityEngine.Vector3;
+
 
 public class WorldTilemap : MonoBehaviour
 {
     public Tilemap tilemap;
     public Dictionary<Vector3, CustomTile> tiles;
+    public Dictionary<Vector3, Node> nodes;
 
     private void Start()
     {
         int i = 0;
         tiles = new Dictionary<Vector3, CustomTile>();
+        nodes = new Dictionary<Vector3, Node>();
         foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
         {
             var localPos = new Vector3Int(pos.x, pos.y, pos.z);
             if (!tilemap.HasTile(localPos)) continue;
             // 타일 정보 설정
             var tile = tilemap.GetTile<CustomTile>(localPos);
+
+            Node node = new Node();
+            node.LocalPosition = localPos;
+            node.WorldPosition = tilemap.GetCellCenterWorld(pos);
+            nodes.Add(node.WorldPosition, node);
+
+            if (tile.PlayerSpawn)
+            {
+                GameManager.Instance.CreatePlayer(tilemap.GetCellCenterWorld(tile.LocalPosition));
+            }
+            i++;
+            /*
             tile.LocalPosition = localPos;
-            tile.WorldPosition = tilemap.GetCellCenterWorld(pos);
+            tile.WorldPosition = tilemap.CellToWorld(pos);
+            tile.WorldCenterPosition = tilemap.GetCellCenterWorld(pos);
+            tiles.Add(tile.WorldCenterPosition, tile);
+            Debug.Log("Center: " + tile.WorldCenterPosition);
             tile.Tilemap = tilemap;
             tile.Name = localPos.x + ", " + localPos.y + ": " + tile.Type.ToString();
-            tile.GameObject = tilemap.GetInstantiatedObject(localPos);
             switch (tile.Type)
             {
                 case TILE_TYPE.DEFAULT:
@@ -38,12 +59,45 @@ public class WorldTilemap : MonoBehaviour
             if (tile.PlayerSpawn)
             {
                 GameManager.Instance.CreatePlayer(tilemap.GetCellCenterWorld(tile.LocalPosition));
-            }
-            tiles.Add(tile.WorldPosition, tile);
-            Debug.Log(i + ": " + tile.WorldPosition);
-            i++;
+            }*/
         }
-
-        Debug.Log(tiles.Count);
+        
+        foreach (var n in nodes)
+        {
+            Debug.Log(n.Key + "::" + n.Value.WorldPosition);
+        }
+        Debug.Log(nodes.Count);
     }
+
+    private void Initialize()
+    {
+        tilemap.CompressBounds();
+        var bounds = tilemap.cellBounds;
+        var spots = new Vector3Int[bounds.size.x, bounds.size.y];
+
+        for (int x = 0; x < bounds.size.x; x++)
+        {
+            for (int y = 0; y < bounds.size.y; y++)
+            {
+                var px = bounds.xMin + x;
+                var py = bounds.yMin + y;
+                if (tilemap.HasTile(new Vector3Int(px, py, 0)))
+                {
+                    spots[x, y] = new Vector3Int(px, py, 0);
+                }
+                else
+                {
+                    spots[x, y] = new Vector3Int(px, py, 1);
+                }
+            }
+        }
+    }
+
+    public CustomTile GetTileByWorldPosition(Vector3 worldPos)
+    {
+        var pos = tilemap.WorldToCell(worldPos);
+        var tile = tilemap.GetTile<CustomTile>(pos);
+        return tile;
+    }
+    
 }

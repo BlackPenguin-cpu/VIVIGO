@@ -1,17 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainTitle : MonoBehaviour
 {
-    public void OnClickStartButton()
+    private void Update()
     {
-
-    }
-
-    public void OnClickExitButton()
-    {
-
+        if (Input.anyKeyDown)
+        {
+            SceneManager.LoadScene("GameScene");
+        }
     }
 }
