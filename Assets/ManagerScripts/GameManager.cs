@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : SingletonManager<GameManager>
 {
+
     public GameObject playerPrefab;
     private Player player;
 
