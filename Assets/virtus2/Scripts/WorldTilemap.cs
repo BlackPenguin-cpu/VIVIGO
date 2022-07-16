@@ -14,6 +14,9 @@ public class WorldTilemap : MonoBehaviour
     public Dictionary<Vector3, CustomTile> tiles;
     public Dictionary<Vector3, Node> nodes;
 
+    public Node StartNode;
+    public Node DestinationNode;
+
     private void Start()
     {
         int i = 0;
@@ -33,7 +36,16 @@ public class WorldTilemap : MonoBehaviour
 
             if (tile.PlayerSpawn)
             {
-                GameManager.Instance.CreatePlayer(tilemap.GetCellCenterWorld(tile.LocalPosition));
+                GameManager.Instance.CreatePlayer(node.WorldPosition);
+                StartNode = node;
+            }
+            else if (tile.Type == TILE_TYPE.GOAL)
+            {
+                DestinationNode = node;
+            }
+            else if (tile.EnemyType != ENEMY_TYPE.NONE)
+            {
+                GameManager.Instance.CreateMonster(node.WorldPosition, tile.EnemyType);
             }
             i++;
             /*
@@ -67,6 +79,7 @@ public class WorldTilemap : MonoBehaviour
             Debug.Log(n.Key + "::" + n.Value.WorldPosition);
         }
         Debug.Log(nodes.Count);
+        PathfindManager.Instance.SetNodes(StartNode, DestinationNode);
     }
 
     private void Initialize()
