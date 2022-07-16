@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameStage : MonoBehaviour
+public class GameStage : SingletonManager<GameStage>
 {
     public WorldTilemap[] Stages;
     public int currentStage = 0;
 
     private void Start()
     {
-        Stages = GetComponentsInChildren<WorldTilemap>();
+        Stages = GetComponentsInChildren<WorldTilemap>(true);
         Debug.Log(Stages.Length);
 
     }
@@ -19,5 +19,10 @@ public class GameStage : MonoBehaviour
         Stages[currentStage].gameObject.SetActive(false);
         currentStage++;
         Stages[currentStage].gameObject.SetActive(true);
+    }
+
+    public WorldTilemap GetCurrentTilemap()
+    {
+        return Stages[currentStage];
     }
 }
