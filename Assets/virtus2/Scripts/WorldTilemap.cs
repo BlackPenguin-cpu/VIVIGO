@@ -5,12 +5,10 @@ using UnityEngine.Tilemaps;
 
 public class WorldTilemap : MonoBehaviour
 {
-    public Player player;
-
     public Tilemap tilemap;
     public Dictionary<Vector3, CustomTile> tiles;
 
-    private void Awake()
+    private void Start()
     {
         tiles = new Dictionary<Vector3, CustomTile>();
         foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
@@ -41,7 +39,10 @@ public class WorldTilemap : MonoBehaviour
 
             if (tile.PlayerSpawn)
             {
-                GameManager.Instance.CreatePlayer(tilemap.GetCellCenterLocal(tile.LocalPosition));
+                Debug.Log(GameManager.Instance);
+                Debug.Log(tilemap);
+                Debug.Log(tile);
+                GameManager.Instance.CreatePlayer(tilemap.GetCellCenterWorld(tile.LocalPosition));
             }
 
         }
