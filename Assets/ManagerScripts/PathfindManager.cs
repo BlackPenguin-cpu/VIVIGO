@@ -46,6 +46,8 @@ public class PathfindManager : SingletonManager<PathfindManager>
         {
             // var list = GetNeighborNodes(new Vector3(-2.5f, -1f, 0));
             // Debug.Log(list.Count);
+            Debug.Log(GameManager.Instance.GetPlayerObject());
+            Debug.Log(EndNode.WorldPosition);
             var path = GetPath(GameManager.Instance.GetPlayerObject().transform.position, EndNode.WorldPosition);
             if (path != null)
             {
@@ -74,16 +76,26 @@ public class PathfindManager : SingletonManager<PathfindManager>
 
         bool success = true;
         Vector3Int cellPos = tilemap.WorldToCell(WorldPosition);
+        var dstNode = GameStage.Instance.GetCurrentTilemap().nodes[WorldPosition];
+        if (dstNode == null) return false;
+        if (dstNode.Type == TILE_TYPE.OBSTACLE) return false;
+        if (dstNode.Type == TILE_TYPE.LOCK)
+        {
+            if (!GameManager.Instance.GetPlayerObject().HasKey) return false;
+            dstNode.Type = TILE_TYPE.DEFAULT;
+        }
+        /*
         var dstTile = tilemap.GetTile<CustomTile>(cellPos);
         // 이동하려는 좌표가 타일맵 범위 밖일 경우 실패
         if (dstTile == null) return false;
         // 장애물일때
-        if (dstTile.Type == TILE_TYPE.OBSTACLE)
+        if (dstTile.Type == TILE_TYPE.OBSTACLE) return false;
+        // 자물쇠일때
+        if (dstTile.Type == TILE_TYPE.LOCK)
         {
-            success = false;
+            if (!GameManager.Instance.GetPlayerObject().HasKey) return false;
         }
-
-
+        */
         return success;
     }
 

@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class GameManager : SingletonManager<GameManager>
 {
+
     public GameObject playerPrefab;
     private Player player;
 
     public GameObject[] enemyPrefab;
     private List<Enemy> enemies;
+
+    public GameObject keyPrefab;
+
+    public GameObject lockPrefab;
+
     public ArrowKeyManager arrowKeyManager;
 
     public void CreatePlayer(Vector3 worldPosition)
@@ -21,6 +27,16 @@ public class GameManager : SingletonManager<GameManager>
     {
         var go = Instantiate(enemyPrefab[(int)enemyType], worldPosition, new Quaternion()).GetComponent<Enemy>();
         enemies.Add(go);
+    }
+
+    public void CreateKey(Vector3 worldPosition)
+    {
+        var go = Instantiate(keyPrefab, worldPosition, new Quaternion());   
+    }
+
+    public void CreateLock(Vector3 worldPosition)
+    {
+        var go = Instantiate(lockPrefab, worldPosition, new Quaternion());
     }
 
     public Player GetPlayerObject()
