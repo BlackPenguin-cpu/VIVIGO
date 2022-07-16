@@ -15,8 +15,6 @@ public class GameStage : SingletonManager<GameStage>
         Stages = StageGameObject.GetComponentsInChildren<WorldTilemap>(true);
     }
     
-
-    
     public void NextStage()
     {
         Stages[currentStage].gameObject.SetActive(false);

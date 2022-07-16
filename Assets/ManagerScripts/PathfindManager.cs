@@ -6,12 +6,28 @@ using UnityEngine.Tilemaps;
 
 public class PathfindManager : SingletonManager<PathfindManager>
 {
-    private readonly Vector3Int[] neighborPositions =
+    public Node StartNode;
+    public Node EndNode;
+
+    public const float XSize = 0.9f;
+    public const float YSize = 0.7f; 
+
+    public void SetNodes(Node StartNode, Node EndNode)
     {
-        Vector3Int.up,
-        Vector3Int.right,
-        Vector3Int.down,
-        Vector3Int.left,
+        this.StartNode = StartNode;
+        this.EndNode = EndNode;
+    }
+    private readonly Vector3[] neighborPositions =
+    {
+        //new Vector3(0.9f, 0,0),
+        //new Vector3(0, 0.7f, 0),
+        //new Vector3(-0.9f, 0, 0),
+        //new Vector3(0, -0.7f, 0),
+
+        Vector3.up,
+        Vector3.right,
+        Vector3.down,
+        Vector3.left,
     
         // 대각선
         //Vector3Int.up + Vector3Int.right,
@@ -30,8 +46,7 @@ public class PathfindManager : SingletonManager<PathfindManager>
         {
             // var list = GetNeighborNodes(new Vector3(-2.5f, -1f, 0));
             // Debug.Log(list.Count);
-            
-            var path = GetPath(new Vector3(-2.5f, -1f, 0), new Vector3(2.5f, 1f, 0));
+            var path = GetPath(GameManager.Instance.GetPlayerObject().transform.position, EndNode.WorldPosition);
             if (path != null)
             {
 
@@ -139,8 +154,6 @@ public class PathfindManager : SingletonManager<PathfindManager>
                 path.Add(current);
                 current = current.ExploredFrom;
             }
-
-            Debug.Log(path.Count);
             path.Add(start);
             path.Reverse();
             return path;
@@ -163,10 +176,11 @@ public class PathfindManager : SingletonManager<PathfindManager>
         WorldTilemap worldTilemap = GameStage.Instance.GetCurrentTilemap();
         foreach (var nextPositions in neighborPositions)
         {
+            //var scaledPosition = new Vector3(nextPositions.x * XSize, nextPositions.y * YSize, 0);
             var position = currentPosition + nextPositions;
             if (!worldTilemap.nodes.ContainsKey(position)) continue;
             
-            Debug.Log(position + "좌표의 타일을 리스트에 넣는다.");
+            Debug.Log(position.x + ", " + position.y + "좌표의 타일을 리스트에 넣는다.");
             Node neighbor = worldTilemap.nodes[position]; 
             Debug.Log(neighbor.WorldPosition + "를 넣었다.");
 
