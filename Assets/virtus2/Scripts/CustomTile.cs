@@ -10,6 +10,7 @@ public enum TILE_TYPE
     MUD,
     ICE,
     LOCK,
+    KEY,
     GOAL,
 }
 

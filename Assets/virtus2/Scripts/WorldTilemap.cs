@@ -40,14 +40,24 @@ public class WorldTilemap : MonoBehaviour
                 GameManager.Instance.CreatePlayer(node.WorldPosition);
                 StartNode = node;
             }
-            else if (tile.Type == TILE_TYPE.GOAL)
+
+            switch (tile.Type)
             {
-                GoalNode = node;
+                case TILE_TYPE.GOAL:
+                    GoalNode = node;
+                    break;
+                case TILE_TYPE.KEY:
+                    GameManager.Instance.CreateKey(node.WorldPosition);
+                    break;
+                default:
+                    break;
             }
-            else if (tile.EnemyType != ENEMY_TYPE.NONE)
+            
+            if (tile.EnemyType != ENEMY_TYPE.NONE)
             {
                 GameManager.Instance.CreateMonster(node.WorldPosition, tile.EnemyType);
             }
+            
             i++;
             /*
             tile.LocalPosition = localPos;

@@ -9,6 +9,9 @@ public class GameManager : SingletonManager<GameManager>
 
     public GameObject[] enemyPrefab;
     private List<Enemy> enemies;
+
+    public GameObject keyPrefab;
+
     public ArrowKeyManager arrowKeyManager;
 
     public void CreatePlayer(Vector3 worldPosition)
@@ -21,6 +24,12 @@ public class GameManager : SingletonManager<GameManager>
     {
         var go = Instantiate(enemyPrefab[(int)enemyType], worldPosition, new Quaternion()).GetComponent<Enemy>();
         enemies.Add(go);
+    }
+
+    public void CreateKey(Vector3 worldPosition)
+    {
+        var go = Instantiate(keyPrefab, worldPosition, new Quaternion());
+        
     }
 
     public Player GetPlayerObject()
