@@ -29,11 +29,16 @@ public class PathfindManager : SingletonManager<PathfindManager>
         if (Input.GetMouseButtonDown(0))
         {
             var path = GetPath(new Vector3(-2.5f, -1f, 0), new Vector3(2.5f, 1f, 0));
-            Debug.Log(path.Count);
-            for (int i = 0; i < path.Count; i++)
+            if (path != null)
             {
-                path[i].GameObject.SetActive(false);
+
+                Debug.Log(path.Count);
+                for (int i = 0; i < path.Count; i++)
+                {
+                    path[i].GameObject.SetActive(false);
+                }
             }
+            
         }
     }
 
@@ -154,10 +159,16 @@ public class PathfindManager : SingletonManager<PathfindManager>
         foreach (var nextPositions in neighborPositions)
         {
             var position = currentPosition + nextPositions;
-            Debug.Log(position);
-            if (!worldTilemap.tiles.ContainsKey(position)) continue;
-            var neighbor = worldTilemap.tiles[position];
-            neighborTiles.Add(neighbor);
+            if (!worldTilemap.tiles.ContainsKey(position))
+            {
+                Debug.Log("continue: "+ position);
+                continue;
+            }
+
+            Debug.Log(worldTilemap.tiles[position].WorldPosition);
+
+
+            //neighborTiles.Add(neighbor);
         }
         return neighborTiles;
     }

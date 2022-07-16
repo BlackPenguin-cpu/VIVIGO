@@ -40,7 +40,7 @@ public class WorldTilemap : MonoBehaviour
                 GameManager.Instance.CreatePlayer(tilemap.GetCellCenterWorld(tile.LocalPosition));
             }
             tiles.Add(tile.WorldPosition, tile);
-            Debug.Log(i + ": "+tile.WorldPosition);
+            Debug.Log(i + ": " + tile.WorldPosition);
             i++;
         }
 
