@@ -41,21 +41,39 @@ public class WorldTilemap : MonoBehaviour
 
             if (tile.PlayerSpawn)
             {
-                var go = Instantiate(player);
-                go.transform.localPosition = tilemap.GetCellCenterLocal(tile.LocalPosition);
+                GameManager.Instance.CreatePlayer(tilemap.GetCellCenterLocal(tile.LocalPosition));
             }
 
         }
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+
+        bool test = CanMove(new Vector3(-0.5f, -0.5f, 0));
+        Debug.Log("obstacle test: Can Move? " + test);
+        test = CanMove(new Vector3(-2.5f, -0.5f, 0));
+        Debug.Log("default test: Can Move? " + test);
+        test = CanMove(new Vector3(-100f, -100f, 0));
+        Debug.Log("out of bounds test: Can Move? " + test);
     }
 
-    // Update is called once per frame
-    void Update()
+    public bool CanMove(Vector3 WorldPosition)
     {
-        
+        bool success = true;
+        Vector3Int cellPos = tilemap.WorldToCell(WorldPosition);
+        Vector3 movingPos = tilemap.GetCellCenterWorld(cellPos);
+
+        var dstTile = tilemap.GetTile<CustomTile>(cellPos);
+        if (dstTile == null)
+        {
+            // 범위 밖 
+            return false;
+        }
+
+        if (dstTile.Type == TILE_TYPE.OBSTACLE)
+        {
+            // 장애물
+            success = false;
+        }
+
+
+        return success;
     }
 }
