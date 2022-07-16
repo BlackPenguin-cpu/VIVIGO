@@ -15,7 +15,7 @@ public class WorldTilemap : MonoBehaviour
     public Dictionary<Vector3, Node> nodes;
 
     public Node StartNode;
-    public Node DestinationNode;
+    public Node GoalNode;
 
     private void Start()
     {
@@ -30,6 +30,7 @@ public class WorldTilemap : MonoBehaviour
             var tile = tilemap.GetTile<CustomTile>(localPos);
 
             Node node = new Node();
+            node.Type = tile.Type;
             node.LocalPosition = localPos;
             node.WorldPosition = tilemap.GetCellCenterWorld(pos);
             nodes.Add(node.WorldPosition, node);
@@ -41,7 +42,7 @@ public class WorldTilemap : MonoBehaviour
             }
             else if (tile.Type == TILE_TYPE.GOAL)
             {
-                DestinationNode = node;
+                GoalNode = node;
             }
             else if (tile.EnemyType != ENEMY_TYPE.NONE)
             {
@@ -79,7 +80,7 @@ public class WorldTilemap : MonoBehaviour
             Debug.Log(n.Key + "::" + n.Value.WorldPosition);
         }
         Debug.Log(nodes.Count);
-        PathfindManager.Instance.SetNodes(StartNode, DestinationNode);
+        PathfindManager.Instance.SetNodes(StartNode, GoalNode);
     }
 
     private void Initialize()
