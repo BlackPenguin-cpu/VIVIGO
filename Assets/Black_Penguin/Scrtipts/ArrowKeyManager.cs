@@ -21,6 +21,8 @@ public class ArrowKeyManager : MonoBehaviour
     private void Update()
     {
         MoveInput();
+        if (Input.GetKeyDown(KeyCode.Space))
+            ReRoll();
     }
     public void MoveInput()
     {
@@ -43,14 +45,17 @@ public class ArrowKeyManager : MonoBehaviour
     }
     public void MoveAction(int index)
     {
-        if (arrowKeys[index] > 0)
+        for (int i = 0; i < 6; i++)
         {
-            arrowKeys[index]--;
-        }
-        else
-        {
-            Debug.Log("키가 없네요 ㅠㅠ");
-            return;
+            if (i == 6)
+            {
+                Debug.Log("키가 없네요 ㅠㅠ");
+                return;
+            }
+            if (arrowKeys[index] == (ArrowKey)index)
+            {
+                break;
+            }
         }
 
         Vector2 dir = Vector2.zero;
@@ -78,6 +83,8 @@ public class ArrowKeyManager : MonoBehaviour
     }
     public void ReRoll()
     {
+        if (arrowKeys.Count <= 2) return;
+
         for (int i = 0; i < 5; i++)
         {
             arrowKeys[i] = (ArrowKey)Random.Range(0, 5);
