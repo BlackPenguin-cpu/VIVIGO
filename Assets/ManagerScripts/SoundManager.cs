@@ -13,6 +13,7 @@ public class SoundManager : SingletonManager<SoundManager>
 {
     private Dictionary<string, AudioClip> m_Sounds = new Dictionary<string, AudioClip>();
     public Dictionary<SoundType, AudioSource> AudioSources = new Dictionary<SoundType, AudioSource>();
+    public Dictionary<SoundType, float> AudioVolumes = new Dictionary<SoundType, float>();
 
     protected override void Awake()
     {
@@ -24,6 +25,7 @@ public class SoundManager : SingletonManager<SoundManager>
             GameObject obj = new GameObject(i.ToString());
             AudioSources[i] = obj.AddComponent<AudioSource>();
             obj.transform.SetParent(gameObject.transform);
+            AudioVolumes[(SoundType)i] = 0.5f;
 
             if (i == SoundType.BGM)
             {
@@ -37,16 +39,26 @@ public class SoundManager : SingletonManager<SoundManager>
             m_Sounds[audioClip.name] = audioClip;
         }
     }
-    public void SoundPlay(string clipName, SoundType soundType)
+    public void SoundPlay(string clipName, SoundType soundType, float volume, float pitch)
     {
         if (soundType == SoundType.BGM)
         {
             AudioSources[soundType].clip = m_Sounds[clipName];
+            AudioSources[soundType].volume = volume * AudioVolumes[soundType];
         }
         else
         {
-            AudioSources[soundType].PlayOneShot(m_Sounds[clipName], 1);
+            AudioSources[soundType].PlayOneShot(m_Sounds[clipName], volume);
         }
+        AudioSources[soundType].pitch = pitch;
+    }
+    public void SFX_VolumeSet(int value)
+    {
+        AudioVolumes[SoundType.SFX] = value;
+    }
+    public void BGM_VolumeSet(int value)
+    {
+        AudioVolumes[SoundType.BGM] = value;
     }
 }
 
