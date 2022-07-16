@@ -6,4 +6,8 @@ public class KeyObject : MonoBehaviour
 {
     public Vector3 WorldPosition;
 
+    void OnCollisionEnter(Collision collision)
+    {
+
+    }
 }

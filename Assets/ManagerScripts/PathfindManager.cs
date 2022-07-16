@@ -46,6 +46,8 @@ public class PathfindManager : SingletonManager<PathfindManager>
         {
             // var list = GetNeighborNodes(new Vector3(-2.5f, -1f, 0));
             // Debug.Log(list.Count);
+            Debug.Log(GameManager.Instance.GetPlayerObject());
+            Debug.Log(EndNode.WorldPosition);
             var path = GetPath(GameManager.Instance.GetPlayerObject().transform.position, EndNode.WorldPosition);
             if (path != null)
             {
