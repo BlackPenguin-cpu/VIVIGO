@@ -824,7 +824,7 @@ GameObject:
   - component: {fileID: 468787228}
   - component: {fileID: 468787227}
   m_Layer: 0
-  m_Name: Game Stages
+  m_Name: "Game Stages - Current Stage \uBCC0\uACBD\uD574\uC11C \uD14C\uC2A4\uD2B8"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -844,7 +844,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stages: []
   StageGameObject: {fileID: 169154452}
-  currentStage: 3
+  currentStage: 0
 --- !u!4 &468787228
 Transform:
   m_ObjectHideFlags: 0
@@ -3460,7 +3460,7 @@ GameObject:
   - component: {fileID: 1850120843}
   - component: {fileID: 1850120844}
   m_Layer: 0
-  m_Name: Stage 3
+  m_Name: Stage 3 - Learn walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4537,7 +4537,7 @@ GameObject:
   - component: {fileID: 2002201576}
   - component: {fileID: 2002201577}
   m_Layer: 0
-  m_Name: Stage 2
+  m_Name: Stage 2 - Learn the Next Stage button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4737,7 +4737,7 @@ GameObject:
   - component: {fileID: 2102096219}
   - component: {fileID: 2102096220}
   m_Layer: 0
-  m_Name: Stage 0
+  m_Name: Stage 0 - Learn basic controls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
