@@ -22,9 +22,6 @@ public class WorldTilemap : MonoBehaviour
             tile.Tilemap = tilemap;
             tile.Name = localPos.x + ", " + localPos.y + ": " + tile.Type.ToString();
             tile.GameObject = tilemap.GetInstantiatedObject(localPos);
-
-
-            Debug.Log(tile.Name);
             switch (tile.Type)
             {
                 case TILE_TYPE.DEFAULT:
@@ -39,20 +36,13 @@ public class WorldTilemap : MonoBehaviour
 
             if (tile.PlayerSpawn)
             {
-                Debug.Log(GameManager.Instance);
-                Debug.Log(tilemap);
-                Debug.Log(tile);
                 GameManager.Instance.CreatePlayer(tilemap.GetCellCenterWorld(tile.LocalPosition));
             }
+            tiles.Add(tile.WorldPosition, tile);
+            Debug.Log(tile.WorldPosition);
 
         }
 
-        bool test = CanMove(new Vector3(-0.5f, -0.5f, 0));
-        Debug.Log("obstacle test: Can Move? " + test);
-        test = CanMove(new Vector3(-2.5f, -0.5f, 0));
-        Debug.Log("default test: Can Move? " + test);
-        test = CanMove(new Vector3(-100f, -100f, 0));
-        Debug.Log("out of bounds test: Can Move? " + test);
+        Debug.Log(tiles.Count);
     }
-    
 }

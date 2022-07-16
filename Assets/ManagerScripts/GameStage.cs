@@ -1,19 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Transactions;
 using UnityEngine;
 
 public class GameStage : SingletonManager<GameStage>
 {
     public WorldTilemap[] Stages;
+    public GameObject StageGameObject;
     public int currentStage = 0;
 
-    private void Start()
+    private void Awake()
     {
-        Stages = GetComponentsInChildren<WorldTilemap>(true);
-        Debug.Log(Stages.Length);
-
+        base.Awake();
+        Stages = StageGameObject.GetComponentsInChildren<WorldTilemap>(true);
     }
+    
 
+    
     public void NextStage()
     {
         Stages[currentStage].gameObject.SetActive(false);
