@@ -43,7 +43,6 @@ public class WorldTilemap : MonoBehaviour
             {
                 var go = Instantiate(player);
                 go.transform.localPosition = tilemap.GetCellCenterLocal(tile.LocalPosition);
-
             }
 
         }
