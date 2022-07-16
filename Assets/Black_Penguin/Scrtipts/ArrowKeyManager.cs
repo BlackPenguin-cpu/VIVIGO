@@ -45,15 +45,16 @@ public class ArrowKeyManager : MonoBehaviour
     }
     public void MoveAction(int index)
     {
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < arrowKeys.Count + 1; i++)
         {
-            if (i == 6)
+            if (i == arrowKeys.Count)
             {
                 Debug.Log("키가 없네요 ㅠㅠ");
                 return;
             }
-            if (arrowKeys[index] == (ArrowKey)index)
+            if (arrowKeys[i] == (ArrowKey)index)
             {
+                arrowKeys.RemoveAt(i);
                 break;
             }
         }
@@ -83,11 +84,11 @@ public class ArrowKeyManager : MonoBehaviour
     }
     public void ReRoll()
     {
-        if (arrowKeys.Count <= 2) return;
+        if (arrowKeys.Count > 2) return;
 
-        for (int i = 0; i < 5; i++)
+        while (arrowKeys.Count < 5)
         {
-            arrowKeys[i] = (ArrowKey)Random.Range(0, 5);
+            arrowKeys.Add((ArrowKey)Random.Range(0, 4));
         }
     }
 }
