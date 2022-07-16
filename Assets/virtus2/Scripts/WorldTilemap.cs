@@ -10,6 +10,7 @@ public class WorldTilemap : MonoBehaviour
 
     private void Start()
     {
+        int i = 0;
         tiles = new Dictionary<Vector3, CustomTile>();
         foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
         {
@@ -18,7 +19,7 @@ public class WorldTilemap : MonoBehaviour
             // 타일 정보 설정
             var tile = tilemap.GetTile<CustomTile>(localPos);
             tile.LocalPosition = localPos;
-            tile.WorldPosition = tilemap.CellToWorld(localPos);
+            tile.WorldPosition = tilemap.GetCellCenterWorld(pos);
             tile.Tilemap = tilemap;
             tile.Name = localPos.x + ", " + localPos.y + ": " + tile.Type.ToString();
             tile.GameObject = tilemap.GetInstantiatedObject(localPos);
@@ -39,8 +40,8 @@ public class WorldTilemap : MonoBehaviour
                 GameManager.Instance.CreatePlayer(tilemap.GetCellCenterWorld(tile.LocalPosition));
             }
             tiles.Add(tile.WorldPosition, tile);
-            Debug.Log(tile.WorldPosition);
-
+            Debug.Log(i + ": "+tile.WorldPosition);
+            i++;
         }
 
         Debug.Log(tiles.Count);
