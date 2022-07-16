@@ -564,8 +564,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b68c07826d948b4282108911b273e52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowKeys: 0000000000000000000000000000000000000000
+  arrowKeys: 
   Player: {fileID: 0}
+  ArrowKeyParentObj: {fileID: 1143182493}
+  ArrowKeyObj:
+  - {fileID: 7804995716121875589, guid: cb7d169e077cfd6438bc35f66801f1c7, type: 3}
+  - {fileID: 5104268582133314618, guid: 214ae2bdadbfb484c8ab60bc8c685d5d, type: 3}
+  - {fileID: 221529030445109839, guid: ab3cfbe984b818045a748033bf0e84dc, type: 3}
+  - {fileID: 180666187309378562, guid: 13d3a0a547d33e74ca92d8cfa9a696e0, type: 3}
 --- !u!4 &343310757
 Transform:
   m_ObjectHideFlags: 0
@@ -1451,7 +1457,7 @@ GameObject:
   - component: {fileID: 1143182495}
   m_Layer: 5
   m_Name: "\uBC29\uD5A5\uD0A4 \uB9AC\uC2A4\uD2B8"
-  m_TagString: Untagged
+  m_TagString: ArrowKeyList
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
