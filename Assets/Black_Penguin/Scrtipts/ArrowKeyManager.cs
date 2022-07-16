@@ -70,7 +70,11 @@ public class ArrowKeyManager : MonoBehaviour
                 break;
         }
 
-        Player.transform.position += (Vector3)dir;
+        if (PathfindManager.Instance.CanMove(Player.transform.position + (Vector3)dir))
+        {
+            Player.transform.position += (Vector3)dir;
+        }
+
     }
     public void ReRoll()
     {
