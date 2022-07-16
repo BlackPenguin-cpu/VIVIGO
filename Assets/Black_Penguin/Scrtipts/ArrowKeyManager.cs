@@ -72,7 +72,7 @@ public class ArrowKeyManager : MonoBehaviour
 
         if (PathfindManager.Instance.CanMove(Player.transform.position + (Vector3)dir))
         {
-            Player.transform.position += (Vector3)dir
+            Player.transform.position += (Vector3)dir;
         }
 
     }
