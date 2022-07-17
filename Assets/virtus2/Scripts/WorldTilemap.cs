@@ -68,7 +68,7 @@ public class WorldTilemap : MonoBehaviour
         }
         
         Debug.Log(nodes.Count);
-        PathfindManager._Instance.SetNodes(StartNode, GoalNode);
+        PathfindManager.Instance.SetNodes(StartNode, GoalNode);
         SpawnObjects();
     }
 
@@ -79,7 +79,7 @@ public class WorldTilemap : MonoBehaviour
             var node = pair.Value;
             if (node.PlayerSpawn)
             {
-                GameManager._Instance.CreatePlayer(node.WorldPosition);
+                GameManager.Instance.CreatePlayer(node.WorldPosition);
                 StartNode = node;
             }
 
@@ -87,18 +87,18 @@ public class WorldTilemap : MonoBehaviour
             {
                 case TILE_TYPE.GOAL:
                     GoalNode = node;
-                    GameManager._Instance.CreateGrandma(node.WorldPosition);
+                    GameManager.Instance.CreateGrandma(node.WorldPosition);
                     break;
                 case TILE_TYPE.KEY:
-                    GameManager._Instance.CreateKey(node.WorldPosition);
+                    GameManager.Instance.CreateKey(node.WorldPosition);
                     //KeyNodes.Add(node);
                     break;
                 case TILE_TYPE.LOCK:
-                    GameManager._Instance.CreateLock(node.WorldPosition);
+                    GameManager.Instance.CreateLock(node.WorldPosition);
                     //LockNodes.Add(node);
                     break;
                 case TILE_TYPE.OBSTACLE:
-                    GameManager._Instance.CreateObstacle(node.WorldPosition);
+                    GameManager.Instance.CreateObstacle(node.WorldPosition);
                     break;
                 default:
                     break;
@@ -106,7 +106,7 @@ public class WorldTilemap : MonoBehaviour
 
             if (node.EnemyType != ENEMY_TYPE.NONE)
             {
-                GameManager._Instance.CreateMonster(node.WorldPosition, node.EnemyType);
+                GameManager.Instance.CreateMonster(node.WorldPosition, node.EnemyType);
             }
         }
     }

@@ -12,15 +12,15 @@ public class Enemy : MonoBehaviour
     public int movementCost;
     private void Awake()
     {
-        player = GameManager._Instance.GetPlayerObject();
+        player = GameManager.Instance.GetPlayerObject();
     }
 
     public void Pursuit()
     {
         if (!pursuit) return;
-        if (player == null) player = GameManager._Instance.GetPlayerObject();
+        if (player == null) player = GameManager.Instance.GetPlayerObject();
         // 이동하려는 타일 찾기
-        var path = PathfindManager._Instance.GetPath(this.transform.position, player.transform.position);
+        var path = PathfindManager.Instance.GetPath(this.transform.position, player.transform.position);
         if (path != null)
         {
             Node dstNode = null;
@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("추적 실패");
             // 이동하려는 타일이 없음. 가만히 있기
-            GameManager._Instance.EnemyMoveFinished();
+            GameManager.Instance.EnemyMoveFinished();
         }
     }
 
@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour
         if (collision != null && collision.gameObject.tag == "Player" && collision.transform.position == this.transform.position)
         {
             Debug.Log("Player Attack");
-            GameManager._Instance.GameOver();
+            GameManager.Instance.GameOver();
 
         }
     }
@@ -85,9 +85,9 @@ public class Enemy : MonoBehaviour
     void TileCheck(Vector3 dir)
     {
         // 얼음 이동
-        if (PathfindManager._Instance.GetTileType(transform.position) == TILE_TYPE.ICE)
+        if (PathfindManager.Instance.GetTileType(transform.position) == TILE_TYPE.ICE)
         {
-            if (PathfindManager._Instance.CanMove(transform.position + dir))
+            if (PathfindManager.Instance.CanMove(transform.position + dir))
             {
                 //StartCoroutine(MoveAction(transform.position + dir));
             }
@@ -100,12 +100,12 @@ public class Enemy : MonoBehaviour
 
     IEnumerator MoveAction(Vector3 vec)
     {
-        GameManager._Instance.EnemyMoveStarted();
+        GameManager.Instance.EnemyMoveStarted();
         OnMove = true;
         GameObject obj = Instantiate(JumpEffect, transform.position + Vector3.up * 0.3f, Quaternion.identity);
         Vector3 dir = vec - transform.position;
         var animator = GetComponent<Animator>();
-        SoundManager._Instance.SoundPlay("Enemy_Move_Sound", SoundType.SFX, 1, 1);
+        SoundManager.Instance.SoundPlay("Enemy_Move_Sound", SoundType.SFX, 1, 1);
 
         animator.Play("JumpAnim");
         while (transform.position != vec)
@@ -117,7 +117,7 @@ public class Enemy : MonoBehaviour
         Destroy(obj);
         TileCheck(dir);
         OnMove = false;
-        GameManager._Instance.EnemyMoveFinished();
+        GameManager.Instance.EnemyMoveFinished();
 
         var v = player.transform.position - transform.position;
         if(v.normalized.y < 0)

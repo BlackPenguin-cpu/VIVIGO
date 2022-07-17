@@ -46,20 +46,20 @@ public class ArrowKeyManager : MonoBehaviour
 
         PannalSetting();
 
-        SoundManager._Instance.SoundPlay("BackGroundMusic", SoundType.BGM, 1, 1);
+        SoundManager.Instance.SoundPlay("BackGroundMusic", SoundType.BGM, 1, 1);
     }
     private void Update()
     {
-        Player = FindObjectOfType<Player>().gameObject;
         MoveInput();
         if (Input.GetKeyDown(KeyCode.Space))
             ReRoll();
     }
     public void MoveInput()
     {
+        if (Player == null) GameManager.Instance.GetPlayerObject();
         float ver = Input.GetAxisRaw("Vertical");
         float hor = Input.GetAxisRaw("Horizontal");
-        if (Input.anyKeyDown && !OnMove && GameManager._Instance.PlayerCanMove)
+        if (Input.anyKeyDown && !OnMove && GameManager.Instance.PlayerCanMove)
         {
             if (hor == 1)
             {
@@ -145,18 +145,18 @@ public class ArrowKeyManager : MonoBehaviour
     void TileCheck(Vector3 dir)
     {
         // 얼음 이동
-        if (PathfindManager._Instance.GetTileType(Player.transform.position) == TILE_TYPE.ICE)
+        if (PathfindManager.Instance.GetTileType(Player.transform.position) == TILE_TYPE.ICE)
         {
-            if (PathfindManager._Instance.CanMove(Player.transform.position + dir))
+            if (PathfindManager.Instance.CanMove(Player.transform.position + dir))
             {
                 StartCoroutine(PlayerMoveAction(Player.transform.position + dir));
             }
         }
         else
         {
-            if (PathfindManager._Instance.ReachedGoal(Player.transform.position))
+            if (PathfindManager.Instance.ReachedGoal(Player.transform.position))
             {
-                GameManager._Instance.PlayerReachedGoal();
+                GameManager.Instance.PlayerReachedGoal();
             }
         }
     }
@@ -200,6 +200,11 @@ public class ArrowKeyManager : MonoBehaviour
         //TileCheck(dir);
         Debug.Log("플레이어 움직임 끝남");
         OnMove = false;
+        if (PathfindManager.Instance.ReachedGoal(Player.transform.position))
+        {
+            GameManager.Instance.PlayerReachedGoal();
+            yield return null;
+        }
         GameManager.Instance.NextTurn();
     }
     
@@ -219,6 +224,6 @@ public class ArrowKeyManager : MonoBehaviour
 
         dice.RollTheDice();
 
-        GameManager._Instance.NextTurn();
+        GameManager.Instance.NextTurn();
     }
 }
