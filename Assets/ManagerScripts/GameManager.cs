@@ -71,8 +71,7 @@ public class GameManager : SingletonManager<GameManager>
     public void PlayerReachedGoal()
     {
         Debug.Log("플레이어 목표 타일 도달");
-        GameReset();
-        GameStage.Instance.NextStage();
+        StartCoroutine(ClearEffect());
     }
 
     public void PlayerHasKey()
@@ -94,7 +93,9 @@ public class GameManager : SingletonManager<GameManager>
             value += Time.deltaTime;
             yield return null;
         }
-        yield return new WaitForSeconds(1);
+        player.GetComponent<Animator>().Play("JumpAnim");
+        player.transform.DOMove(player.transform.position + Vector3.right * 3, 3);
+        yield return new WaitForSeconds(4);
         vignette.intensity.value = 0;
         GameReset();
         enemies.Clear();
