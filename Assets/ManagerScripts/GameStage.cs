@@ -33,7 +33,7 @@ public class GameStage : SingletonManager<GameStage>
             Stages[currentStage].gameObject.SetActive(false);
             currentStage++;
             Stages[currentStage].gameObject.SetActive(true);
-            text.text = "Stage " + currentStage;
+            text.text = "Stage " + (currentStage + 1).ToString();
         }
         else
         {
