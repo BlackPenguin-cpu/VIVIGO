@@ -8,9 +8,9 @@ public class LockObject : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.LogWarning("Trigger Enter");
         if (collision.tag == "Player")
         {
+            Debug.LogWarning("Player Enter");
             var player = collision.gameObject.GetComponent<Player>();
             if (player.HasKey)
             {
