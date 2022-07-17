@@ -52,11 +52,11 @@ public class SoundManager : SingletonManager<SoundManager>
         }
         AudioSources[soundType].pitch = pitch;
     }
-    public void SFX_VolumeSet(int value)
+    public void SFX_VolumeSet(float value)
     {
         AudioVolumes[SoundType.SFX] = value;
     }
-    public void BGM_VolumeSet(int value)
+    public void BGM_VolumeSet(float value)
     {
         AudioVolumes[SoundType.BGM] = value;
     }

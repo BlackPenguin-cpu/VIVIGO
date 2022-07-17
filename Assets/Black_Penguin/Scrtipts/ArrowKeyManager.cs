@@ -105,7 +105,10 @@ public class ArrowKeyManager : MonoBehaviour
         arrowKeys.Clear();
         while (arrowKeys.Count < 5)
         {
-            arrowKeys.Add((ArrowKey)Random.Range(0, 4));
+            ArrowKey key = (ArrowKey)Random.Range(0, 4);
+            if (arrowKeys.FindAll(x => x == key).Count >= 2)
+                continue;
+            arrowKeys.Add(key);
         }
         PannalSetting();
     }
