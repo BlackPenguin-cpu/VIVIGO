@@ -119,7 +119,7 @@ public class Enemy : MonoBehaviour
         }
         animator.Play("IdleAnim");
         Destroy(obj);
-        TileCheck(dir);
+        //TileCheck(dir);
         OnMove = false;
         GameManager.Instance.EnemyMoveFinished();
         transform.position = vec;
