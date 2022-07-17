@@ -50,12 +50,14 @@ public class ArrowKeyManager : MonoBehaviour
         float hor = Input.GetAxisRaw("Horizontal");
         if (Input.anyKeyDown)
         {
-            if (hor == -1)
+            if (hor == 1)
             {
+                Player.GetComponent<SpriteRenderer>().flipX = false;
                 MoveAction(0);
             }
-            else if (hor == 1)
+            else if (hor == -1)
             {
+                Player.GetComponent<SpriteRenderer>().flipX = true;
                 MoveAction(1);
             }
             else if (ver == 1)
@@ -116,41 +118,44 @@ public class ArrowKeyManager : MonoBehaviour
         if (PathfindManager.Instance.CanMove(Player.transform.position + (Vector3)dir))
         {
             StartCoroutine(PlayerMoveAction(Player.transform.position + (Vector3)dir));
-            // 얼음 이동
+        }
 
-        }
-        if (PathfindManager.Instance.ReachedGoal(Player.transform.position))
-        {
-            GameManager.Instance.PlayerReachedGoal();
-        }
         PannalSetting();
 
         GameManager.Instance.NextTurn();
-
     }
-    void TileCheck()
+    void TileCheck(Vector3 dir)
     {
+        // 얼음 이동
         if (PathfindManager.Instance.GetTileType(Player.transform.position) == TILE_TYPE.ICE)
         {
-            if (PathfindManager.Instance.CanMove(Player.transform.position + (Vector3)dir))
+            if (PathfindManager.Instance.CanMove(Player.transform.position + dir))
             {
-                StartCoroutine(PlayerMoveAction(Player.transform.position + (Vector3)dir));
+                StartCoroutine(PlayerMoveAction(Player.transform.position + dir));
+            }
+        }
+        else
+        {
+            if (PathfindManager.Instance.ReachedGoal(Player.transform.position))
+            {
+                GameManager.Instance.PlayerReachedGoal();
             }
         }
     }
     IEnumerator PlayerMoveAction(Vector3 vec)
     {
+        Vector3 dir = vec - Player.transform.position;
         animator = Player.GetComponent<Animator>();
 
         animator.Play("JumpAnim");
         while (Player.transform.position != vec)
         {
             Debug.Log("asd");
-            Player.transform.position = Vector3.MoveTowards(Player.transform.position, vec, Time.deltaTime);
+            Player.transform.position = Vector3.MoveTowards(Player.transform.position, vec, Time.deltaTime * 3);
             yield return null;
         }
         animator.Play("IdleAnim");
-
+        TileCheck(dir);
     }
 
     public void ReRoll()
