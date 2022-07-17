@@ -210,6 +210,7 @@ public class GameManager : SingletonManager<GameManager>
 
         GameReset();
         GameRestart();
+        arrowKeyManager.ReRoll();
         arrowKeyManager.OnMove = false;
         isEnd = false;
     }
