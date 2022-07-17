@@ -50,8 +50,12 @@ public class Enemy : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Player Attack");
-        GameManager.Instance.GameOver();
+        if (collision != null && collision.gameObject.tag == "Player")
+        {
+            Debug.Log("Player Attack");
+            GameManager.Instance.GameOver();
+
+        }
     }
 
     public void MoveTo(Vector3 dst)

@@ -8,6 +8,7 @@ public class Node
     [Header("커스텀 변수")]
     public TILE_TYPE Type;
     public bool PlayerSpawn;
+    public ENEMY_TYPE EnemyType;
     public Vector3Int LocalPosition { get; set; }
     public Vector3 WorldPosition { get; set; }
 
@@ -19,5 +20,6 @@ public class Node
     public Node ExploredFrom { get; set; }
 
     public int Cost { get; set; }
+    
 
 }

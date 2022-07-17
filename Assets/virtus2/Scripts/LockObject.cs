@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class LockObject : MonoBehaviour
 {
-    public Vector3 WorldPosition;
-
     void OnTriggerEnter2D(Collider2D collision)
     {
+        /*
         if (collision.tag == "Player")
         {
             Debug.LogWarning("Player Enter");
@@ -18,5 +17,10 @@ public class LockObject : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
+        */
+    }
+    public void Unlock()
+    {
+        Destroy(this.gameObject);
     }
 }

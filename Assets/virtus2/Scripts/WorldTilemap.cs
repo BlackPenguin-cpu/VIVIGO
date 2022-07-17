@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.Tilemaps;
 using Vector3 = UnityEngine.Vector3;
 
@@ -11,17 +10,18 @@ using Vector3 = UnityEngine.Vector3;
 public class WorldTilemap : MonoBehaviour
 {
     public Tilemap tilemap;
-    public Dictionary<Vector3, CustomTile> tiles;
     public Dictionary<Vector3, Node> nodes;
 
     public Node StartNode;
     public Node GoalNode;
-    public List<Node> MonsterNodes;
     public List<Node> ObjectNodes;
+    public List<Node> KeyNodes;
+    public List<Node> LockNodes;
+    public List<Node> ObstacleNodes;
+    public List<Node> MonsterNodes;
     private void Start()
     {
         int i = 0;
-        tiles = new Dictionary<Vector3, CustomTile>();
         nodes = new Dictionary<Vector3, Node>();
         foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
         {
@@ -34,36 +34,11 @@ public class WorldTilemap : MonoBehaviour
             node.Type = tile.Type;
             node.LocalPosition = localPos;
             node.WorldPosition = tilemap.GetCellCenterWorld(pos);
+            node.EnemyType = tile.EnemyType;
+            node.PlayerSpawn = tile.PlayerSpawn;
+            node.Type = tile.Type;
             nodes.Add(node.WorldPosition, node);
-
-            if (tile.PlayerSpawn)
-            {
-                GameManager.Instance.CreatePlayer(node.WorldPosition);
-                StartNode = node;
-            }
-
-            switch (tile.Type)
-            {
-                case TILE_TYPE.GOAL:
-                    GoalNode = node;
-                    break;
-                case TILE_TYPE.KEY:
-                    GameManager.Instance.CreateKey(node.WorldPosition);
-                    break;
-                case TILE_TYPE.LOCK:
-                    GameManager.Instance.CreateLock(node.WorldPosition);
-                    break;
-                case TILE_TYPE.OBSTACLE:
-                    GameManager.Instance.CreateObstacle(node.WorldPosition);
-                    break;
-                default:
-                    break;
-            }
             
-            if (tile.EnemyType != ENEMY_TYPE.NONE)
-            {
-                GameManager.Instance.CreateMonster(node.WorldPosition, tile.EnemyType);
-            }
             
             i++;
             /*
@@ -94,37 +69,47 @@ public class WorldTilemap : MonoBehaviour
         
         Debug.Log(nodes.Count);
         PathfindManager.Instance.SetNodes(StartNode, GoalNode);
+        SpawnObjects();
     }
 
-    private void Initialize()
+    public void SpawnObjects()
     {
-        tilemap.CompressBounds();
-        var bounds = tilemap.cellBounds;
-        var spots = new Vector3Int[bounds.size.x, bounds.size.y];
-
-        for (int x = 0; x < bounds.size.x; x++)
+        foreach (var pair in nodes)
         {
-            for (int y = 0; y < bounds.size.y; y++)
+            var node = pair.Value;
+            Debug.Log(node.WorldPosition);
+            if (node.PlayerSpawn)
             {
-                var px = bounds.xMin + x;
-                var py = bounds.yMin + y;
-                if (tilemap.HasTile(new Vector3Int(px, py, 0)))
-                {
-                    spots[x, y] = new Vector3Int(px, py, 0);
-                }
-                else
-                {
-                    spots[x, y] = new Vector3Int(px, py, 1);
-                }
+                GameManager.Instance.CreatePlayer(node.WorldPosition);
+                StartNode = node;
+            }
+
+            switch (node.Type)
+            {
+                case TILE_TYPE.GOAL:
+                    GoalNode = node;
+                    GameManager.Instance.CreateGrandma(node.WorldPosition);
+                    break;
+                case TILE_TYPE.KEY:
+                    GameManager.Instance.CreateKey(node.WorldPosition);
+                    //KeyNodes.Add(node);
+                    break;
+                case TILE_TYPE.LOCK:
+                    GameManager.Instance.CreateLock(node.WorldPosition);
+                    //LockNodes.Add(node);
+                    break;
+                case TILE_TYPE.OBSTACLE:
+                    GameManager.Instance.CreateObstacle(node.WorldPosition);
+                    break;
+                default:
+                    break;
+            }
+
+            if (node.EnemyType != ENEMY_TYPE.NONE)
+            {
+                GameManager.Instance.CreateMonster(node.WorldPosition, node.EnemyType);
             }
         }
-    }
-
-    public CustomTile GetTileByWorldPosition(Vector3 worldPos)
-    {
-        var pos = tilemap.WorldToCell(worldPos);
-        var tile = tilemap.GetTile<CustomTile>(pos);
-        return tile;
     }
     
 }
