@@ -10,9 +10,12 @@ public class Enemy : MonoBehaviour
     public bool pursuit;
     private bool OnMove = false;
     public int movementCost;
+
+    public Vector3 currentPosition;
     private void Awake()
     {
         player = GameManager.Instance.GetPlayerObject();
+        currentPosition = transform.position;
     }
 
     public void Pursuit()
@@ -20,7 +23,7 @@ public class Enemy : MonoBehaviour
         if (!pursuit) return;
         if (player == null) player = GameManager.Instance.GetPlayerObject();
         // 이동하려는 타일 찾기
-        var path = PathfindManager.Instance.GetPath(this.transform.position, player.transform.position);
+        var path = PathfindManager.Instance.GetPath(currentPosition, player.GetComponent<Player>().CurrentPosition);
         if (path != null)
         {
             Node dstNode = null;
@@ -118,6 +121,8 @@ public class Enemy : MonoBehaviour
         TileCheck(dir);
         OnMove = false;
         GameManager.Instance.EnemyMoveFinished();
+        transform.position = vec;
+        currentPosition = transform.position;
 
         var v = player.transform.position - transform.position;
         if(v.normalized.y < 0)
