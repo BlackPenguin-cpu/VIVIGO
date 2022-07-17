@@ -127,6 +127,8 @@ public class GameManager : SingletonManager<GameManager>
         enemies.Clear();
         walls.Clear();
 
+        arrowKeyManager.ReRoll();
+
     }
     public Player GetPlayerObject()
     {
