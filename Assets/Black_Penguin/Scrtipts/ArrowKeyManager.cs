@@ -229,4 +229,19 @@ public class ArrowKeyManager : MonoBehaviour
 
         GameManager.Instance.NextTurn();
     }
+    public void ForceReRoll()
+    {
+        SoundManager.Instance.SoundPlay("Dice_Sound", SoundType.SFX, 1, 1);
+        arrowKeys.Clear();
+        while (arrowKeys.Count < maxArrowKeysCount)
+        {
+            ArrowKey key = (ArrowKey)Random.Range(0, 4);
+            if (arrowKeys.FindAll(x => x == key).Count >= 2)
+                continue;
+            arrowKeys.Add(key);
+        }
+        PannalSetting();
+
+        dice.RollTheDice();
+    }
 }

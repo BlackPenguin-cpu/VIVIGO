@@ -28,7 +28,7 @@ public class GameStage : SingletonManager<GameStage>
 
     public void NextStage()
     {
-        FindObjectOfType<ArrowKeyManager>().ReRoll();
+        FindObjectOfType<ArrowKeyManager>().ForceReRoll();
         if (currentStage < Stages.Length)
         {
             Stages[currentStage].gameObject.SetActive(false);
