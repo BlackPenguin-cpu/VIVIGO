@@ -122,7 +122,9 @@ public class GameManager : SingletonManager<GameManager>
         Destroy(player.gameObject);
         enemies.Clear();
         walls.Clear();
-        
+
+        arrowKeyManager.ReRoll();
+
     }
     public Player GetPlayerObject()
     {
