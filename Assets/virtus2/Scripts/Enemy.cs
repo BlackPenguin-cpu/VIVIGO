@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
 
     public void Pursuit()
     {
+        if (player == null) player = GameManager.Instance.GetPlayerObject();
         // 이동하려는 타일 찾기
         var path = PathfindManager.Instance.GetPath(this.transform.position, player.transform.position);
         if (path != null)
@@ -24,6 +25,12 @@ public class Enemy : MonoBehaviour
                 Debug.Log(path[i].Cost);
                 if (path[i].Cost > movementCost) break;
                 dstNode = path[i];
+            }
+            // for DEBUG
+            for (int i = 1; i < path.Count; i++)
+            {
+                Debug.Log(i + ": " + path[i].WorldPosition);
+                Debug.DrawLine(path[i - 1].WorldPosition, path[i].WorldPosition, Color.red, 1.0f);
             }
 
             // dstNode가 이동하려는 노드임
