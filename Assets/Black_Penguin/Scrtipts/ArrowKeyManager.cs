@@ -51,7 +51,7 @@ public class ArrowKeyManager : MonoBehaviour
     private void Update()
     {
         MoveInput();
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !OnMove)
             ReRoll();
     }
     public void MoveInput()

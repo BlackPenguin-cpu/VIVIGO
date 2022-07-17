@@ -7,6 +7,12 @@ public class InputManager : SingletonManager<InputManager>
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
+        if (FindObjectOfType<ArrowKeyManager>().OnMove) return;
         if (Input.GetKeyDown(KeyCode.R))
         {
             // Restart
@@ -23,9 +29,5 @@ public class InputManager : SingletonManager<InputManager>
             GameManager.Instance.PlayerReachedGoal();
         }
 
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
     }
 }
