@@ -127,11 +127,11 @@ public class ArrowKeyManager : MonoBehaviour
         }
 
         var destination = Player.transform.position + (Vector3)dir;
-        if (PathfindManager.Instance.CanMove(destination))
+        if (PathfindManager._Instance.CanMove(destination))
         {
-            if (PathfindManager.Instance.GetTileType(destination) == TILE_TYPE.ICE)
+            if (PathfindManager._Instance.GetTileType(destination) == TILE_TYPE.ICE)
             {
-                while (PathfindManager.Instance.CanMove(destination + (Vector3)dir) && PathfindManager.Instance.GetTileType(destination) == TILE_TYPE.ICE)
+                while (PathfindManager._Instance.CanMove(destination + (Vector3)dir) && PathfindManager._Instance.GetTileType(destination) == TILE_TYPE.ICE)
                 {
                     destination += (Vector3)dir;
                 }
@@ -166,7 +166,7 @@ public class ArrowKeyManager : MonoBehaviour
         GameObject obj = Instantiate(JumpEffect, Player.transform.position + Vector3.up * 0.3f, Quaternion.identity);
         Vector3 dir = vec - Player.transform.position;
         animator = Player.GetComponent<Animator>();
-        SoundManager.Instance.SoundPlay("BB_Jump_Sound", SoundType.SFX, 0.5f, 1);
+        SoundManager._Instance.SoundPlay("BB_Jump_Sound", SoundType.SFX, 0.5f, 1);
 
         animator.Play("JumpAnim");
         while (Player.transform.position != vec)
@@ -201,7 +201,7 @@ public class ArrowKeyManager : MonoBehaviour
         //TileCheck(dir);
         Debug.Log("플레이어 움직임 끝남");
         OnMove = false;
-        GameManager.Instance.NextTurn();
+        GameManager._Instance.NextTurn();
     }
     
     public void ReRoll()
