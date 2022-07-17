@@ -27,6 +27,7 @@ public class GameManager : SingletonManager<GameManager>
     public ArrowKeyManager arrowKeyManager;
 
     public PostProcessVolume volume;
+    public RectTransform ClearUI;
     private void Awake()
     {
         base.Awake();
@@ -77,7 +78,7 @@ public class GameManager : SingletonManager<GameManager>
     public void PlayerHasKey()
     {
         player.HasKey = true;
-        for(int i=0; i<locks.Count; i++)
+        for (int i = 0; i < locks.Count; i++)
         {
             locks[i].Unlock();
         }
@@ -94,8 +95,11 @@ public class GameManager : SingletonManager<GameManager>
             yield return null;
         }
         player.GetComponent<Animator>().Play("JumpAnim");
-        player.transform.DOMove(player.transform.position + Vector3.right * 3, 3);
-        yield return new WaitForSeconds(4);
+        player.transform.DOMove(player.transform.position + (player.GetComponent<SpriteRenderer>().flipX ? Vector3.left : Vector3.right) * 5, 3);
+        yield return new WaitForSeconds(2);
+        ClearUI.DOScaleX(1, 1);
+        yield return new WaitForSeconds(2);
+        ClearUI.localScale = new Vector3(0, 1, 1);
         vignette.intensity.value = 0;
         GameReset();
         enemies.Clear();
@@ -153,7 +157,7 @@ public class GameManager : SingletonManager<GameManager>
 
     public void GameRestart()
     {
-        
+
         GameStage.Instance.GetCurrentTilemap().SpawnObjects();
     }
     public void EnemyMoveStarted()
