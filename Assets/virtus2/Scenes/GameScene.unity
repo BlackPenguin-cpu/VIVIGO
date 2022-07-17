@@ -2263,7 +2263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stages: []
   StageGameObject: {fileID: 169154452}
-  currentStage: 9
+  currentStage: 2
 --- !u!4 &468787228
 Transform:
   m_ObjectHideFlags: 0
@@ -3019,7 +3019,7 @@ MonoBehaviour:
   wallPrefab:
   - {fileID: 968454467501144200, guid: 2553118495a59b64a936dd95a9a9b3ee, type: 3}
   arrowKeyManager: {fileID: 343310756}
-  volume: {fileID: 0}
+  volume: {fileID: 1492179434}
 --- !u!4 &518628094
 Transform:
   m_ObjectHideFlags: 0
