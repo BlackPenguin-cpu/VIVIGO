@@ -40,7 +40,7 @@ public class ArrowKeyManager : MonoBehaviour
 
         PannalSetting();
 
-        SoundManager.Instance.SoundPlay("BackGroundMusic", SoundType.BGM, 1, 1);
+        SoundManager._Instance.SoundPlay("BackGroundMusic", SoundType.BGM, 1, 1);
     }
     private void Update()
     {
@@ -53,7 +53,7 @@ public class ArrowKeyManager : MonoBehaviour
     {
         float ver = Input.GetAxisRaw("Vertical");
         float hor = Input.GetAxisRaw("Horizontal");
-        if (Input.anyKeyDown && !OnMove && GameManager.Instance.PlayerCanMove)
+        if (Input.anyKeyDown && !OnMove && GameManager._Instance.PlayerCanMove)
         {
             if (hor == 1)
             {
@@ -120,7 +120,7 @@ public class ArrowKeyManager : MonoBehaviour
                 break;
         }
 
-        if (PathfindManager.Instance.CanMove(Player.transform.position + (Vector3)dir))
+        if (PathfindManager._Instance.CanMove(Player.transform.position + (Vector3)dir))
         {
             StartCoroutine(PlayerMoveAction(Player.transform.position + (Vector3)dir));
         }
@@ -130,18 +130,18 @@ public class ArrowKeyManager : MonoBehaviour
     void TileCheck(Vector3 dir)
     {
         // 얼음 이동
-        if (PathfindManager.Instance.GetTileType(Player.transform.position) == TILE_TYPE.ICE)
+        if (PathfindManager._Instance.GetTileType(Player.transform.position) == TILE_TYPE.ICE)
         {
-            if (PathfindManager.Instance.CanMove(Player.transform.position + dir))
+            if (PathfindManager._Instance.CanMove(Player.transform.position + dir))
             {
                 StartCoroutine(PlayerMoveAction(Player.transform.position + dir));
             }
         }
         else
         {
-            if (PathfindManager.Instance.ReachedGoal(Player.transform.position))
+            if (PathfindManager._Instance.ReachedGoal(Player.transform.position))
             {
-                GameManager.Instance.PlayerReachedGoal();
+                GameManager._Instance.PlayerReachedGoal();
             }
         }
     }
@@ -151,7 +151,7 @@ public class ArrowKeyManager : MonoBehaviour
         GameObject obj = Instantiate(JumpEffect, Player.transform.position + Vector3.up * 0.3f, Quaternion.identity);
         Vector3 dir = vec - Player.transform.position;
         animator = Player.GetComponent<Animator>();
-        SoundManager.Instance.SoundPlay("BB_Jump_Sound", SoundType.SFX, 0.5f, 1);
+        SoundManager._Instance.SoundPlay("BB_Jump_Sound", SoundType.SFX, 0.5f, 1);
 
         animator.Play("JumpAnim");
         while (Player.transform.position != vec)
@@ -163,7 +163,7 @@ public class ArrowKeyManager : MonoBehaviour
         Destroy(obj);
         TileCheck(dir);
         OnMove = false;
-        GameManager.Instance.NextTurn();
+        GameManager._Instance.NextTurn();
     }
 
     public void ReRoll()
@@ -182,6 +182,6 @@ public class ArrowKeyManager : MonoBehaviour
 
         dice.RollTheDice();
 
-        GameManager.Instance.NextTurn();
+        GameManager._Instance.NextTurn();
     }
 }
