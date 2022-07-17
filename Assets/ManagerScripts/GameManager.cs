@@ -44,6 +44,7 @@ public class GameManager : SingletonManager<GameManager>
     public void CreatePlayer(Vector3 worldPosition)
     {
         player = Instantiate(playerPrefab, worldPosition, new Quaternion(0, 0, 0, 0)).GetComponent<Player>();
+        player.CurrentPosition = worldPosition;
         arrowKeyManager.Player = player.gameObject;
     }
 
