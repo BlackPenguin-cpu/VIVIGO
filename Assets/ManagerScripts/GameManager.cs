@@ -71,8 +71,7 @@ public class GameManager : SingletonManager<GameManager>
     public void PlayerReachedGoal()
     {
         Debug.Log("플레이어 목표 타일 도달");
-        GameReset();
-        GameStage.Instance.NextStage();
+        StartCoroutine(ClearEffect());
     }
 
     public void PlayerHasKey()

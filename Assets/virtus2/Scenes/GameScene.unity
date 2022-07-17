@@ -3772,7 +3772,7 @@ MonoBehaviour:
   - {fileID: 6995877004000552000, guid: e0509027455ff4b43bce4e2fab183d28, type: 3}
   - {fileID: 4275975152744559399, guid: 6fd0e1789fb7dba4b8343bcf1bf5c465, type: 3}
   arrowKeyManager: {fileID: 343310756}
-  volume: {fileID: 0}
+  volume: {fileID: 1492179434}
 --- !u!4 &518628094
 Transform:
   m_ObjectHideFlags: 0
@@ -12548,7 +12548,7 @@ GameObject:
   - component: {fileID: 1492179431}
   - component: {fileID: 1492179435}
   - component: {fileID: 1492179434}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -12633,7 +12633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sharedProfile: {fileID: 11400000, guid: ea7871708f50a8c4cada3b916032ac9a, type: 2}
-  isGlobal: 0
+  isGlobal: 1
   blendDistance: 0
   weight: 1
   priority: 0
@@ -12652,7 +12652,7 @@ MonoBehaviour:
   volumeTrigger: {fileID: 1492179433}
   volumeLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
   antialiasingMode: 0
