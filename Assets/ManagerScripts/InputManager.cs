@@ -12,7 +12,7 @@ public class InputManager : SingletonManager<InputManager>
             // Restart
             // TODO: 게임오버한셈 치고 재시작함(야매)
             // TODO: 나중에 바꿔야할 수도 있을까
-            GameManager.Instance.GameOver();
+            GameManager._Instance.GameOver();
         }
 
         if (Input.GetKeyUp(KeyCode.T))
@@ -20,7 +20,7 @@ public class InputManager : SingletonManager<InputManager>
             // Skip
             // TODO: 클리어한것으로 치고 다음으로 넘어감(야매)
             // TODO: 나중에 바꿔야할 수도 있을까
-            GameManager.Instance.PlayerReachedGoal();
+            GameManager._Instance.PlayerReachedGoal();
         }
 
         if (Input.GetKeyUp(KeyCode.Escape))

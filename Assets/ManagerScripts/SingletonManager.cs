@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 public class SingletonManager<T> : MonoBehaviour where T : MonoBehaviour
 {
-    public static T Instance;
-    public T instance
+    private static T Instance;
+    public static T _Instance
     {
         get
         {
@@ -24,6 +24,7 @@ public class SingletonManager<T> : MonoBehaviour where T : MonoBehaviour
             }
             return Instance;
         }
+        set { Instance = value; }
     }
     protected virtual void Awake()
     {

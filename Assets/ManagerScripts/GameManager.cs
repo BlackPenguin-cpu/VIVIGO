@@ -104,7 +104,7 @@ public class GameManager : SingletonManager<GameManager>
         vignette.intensity.value = 0;
         GameReset();
         enemies.Clear();
-        GameStage.Instance.NextStage();
+        GameStage._Instance.NextStage();
     }
     /// <summary>
     /// 게임 초기화시 사용
@@ -114,7 +114,7 @@ public class GameManager : SingletonManager<GameManager>
         player.HasKey = false;
         PlayerCanMove = true;
         Destroy(grandma);
-        PathfindManager.Instance.ClearExploredTiles();
+        PathfindManager._Instance.ClearExploredTiles();
         for (int i = 0; i < enemies.Count; i++)
         {
             Destroy(enemies[i].gameObject);
@@ -159,7 +159,7 @@ public class GameManager : SingletonManager<GameManager>
     public void GameRestart()
     {
 
-        GameStage.Instance.GetCurrentTilemap().SpawnObjects();
+        GameStage._Instance.GetCurrentTilemap().SpawnObjects();
     }
     public void EnemyMoveStarted()
     {

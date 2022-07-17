@@ -78,17 +78,17 @@ public class PathfindManager : SingletonManager<PathfindManager>
     /// <returns></returns>
     public bool CanMove(Vector3 WorldPosition)
     {
-        Tilemap tilemap = GameStage.Instance.GetCurrentTilemap().tilemap;
+        Tilemap tilemap = GameStage._Instance.GetCurrentTilemap().tilemap;
 
         bool success = true;
         Vector3Int cellPos = tilemap.WorldToCell(WorldPosition);
         Node dstNode = null;
-        if (!GameStage.Instance.GetCurrentTilemap().nodes.TryGetValue(WorldPosition, out dstNode)) return false;
+        if (!GameStage._Instance.GetCurrentTilemap().nodes.TryGetValue(WorldPosition, out dstNode)) return false;
         if (dstNode == null) return false;
         if (dstNode.Type == TILE_TYPE.OBSTACLE) return false;
         if (dstNode.Type == TILE_TYPE.LOCK)
         {
-            if (!GameManager.Instance.GetPlayerObject().HasKey) return false;
+            if (!GameManager._Instance.GetPlayerObject().HasKey) return false;
             dstNode.Type = TILE_TYPE.DEFAULT;
         }
         /*
@@ -113,7 +113,7 @@ public class PathfindManager : SingletonManager<PathfindManager>
     /// <returns></returns>
     public bool ReachedGoal(Vector3 WorldPosition)
     {
-        Tilemap tilemap = GameStage.Instance.GetCurrentTilemap().tilemap;
+        Tilemap tilemap = GameStage._Instance.GetCurrentTilemap().tilemap;
 
         bool reached = false;
         Vector3Int cellPos = tilemap.WorldToCell(WorldPosition);
@@ -129,7 +129,7 @@ public class PathfindManager : SingletonManager<PathfindManager>
     public List<Node> GetPath(Vector3 src, Vector3 dst)
     {
         List<Node> path = new List<Node>();
-        WorldTilemap worldTilemap = GameStage.Instance.GetCurrentTilemap();
+        WorldTilemap worldTilemap = GameStage._Instance.GetCurrentTilemap();
 
         ClearExploredTiles();
 
@@ -192,7 +192,7 @@ public class PathfindManager : SingletonManager<PathfindManager>
     public List<Node> GetNeighborNodes(Vector3 currentPosition)
     {
         List<Node> neighbors = new List<Node>();
-        WorldTilemap worldTilemap = GameStage.Instance.GetCurrentTilemap();
+        WorldTilemap worldTilemap = GameStage._Instance.GetCurrentTilemap();
         foreach (var nextPositions in neighborPositions)
         {
             //var scaledPosition = new Vector3(nextPositions.x * XSize, nextPositions.y * YSize, 0);
@@ -211,7 +211,7 @@ public class PathfindManager : SingletonManager<PathfindManager>
 
     public void ClearExploredTiles()
     {
-        WorldTilemap worldTilemap = GameStage.Instance.GetCurrentTilemap();
+        WorldTilemap worldTilemap = GameStage._Instance.GetCurrentTilemap();
         var dict = worldTilemap.nodes;
         foreach (var tile in dict)
         {
