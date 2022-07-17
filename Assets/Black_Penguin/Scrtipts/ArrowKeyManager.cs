@@ -100,8 +100,9 @@ public class ArrowKeyManager : MonoBehaviour
     }
     public void ReRoll()
     {
-        if (arrowKeys.Count > 2) return;
+        if (arrowKeys.Count > 4) return;
 
+        arrowKeys.Clear();
         while (arrowKeys.Count < 5)
         {
             arrowKeys.Add((ArrowKey)Random.Range(0, 4));
