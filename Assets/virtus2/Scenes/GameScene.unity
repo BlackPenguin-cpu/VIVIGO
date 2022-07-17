@@ -4360,7 +4360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stages: []
   StageGameObject: {fileID: 169154452}
-  currentStage: 5
+  currentStage: 0
   text: {fileID: 926006427}
 --- !u!4 &468787228
 Transform:

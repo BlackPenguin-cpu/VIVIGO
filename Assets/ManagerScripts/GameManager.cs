@@ -128,6 +128,7 @@ public class GameManager : SingletonManager<GameManager>
         enemies.Clear();
         GameStage.Instance.NextStage();
         arrowKeyManager.OnMove = false;
+        PlayerCanMove = true;
     }
     /// <summary>
     /// 게임 초기화시 사용

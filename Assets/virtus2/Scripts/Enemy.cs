@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     {
         if (!pursuit) return;
         if (player == null) player = GameManager.Instance.GetPlayerObject();
+        currentPosition = transform.position;
         // 이동하려는 타일 찾기
         var path = PathfindManager.Instance.GetPath(currentPosition, player.GetComponent<Player>().CurrentPosition);
         if (path != null)
