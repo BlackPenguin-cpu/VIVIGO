@@ -20,9 +20,10 @@ public class GameManager : SingletonManager<GameManager>
     public GameObject vinePrefab;
 
     public GameObject keyPrefab;
+    private GameObject key;
 
     public GameObject lockPrefab;
-    private List<LockObject> locks;
+    private List<GameObject> locks;
 
     public GameObject[] wallPrefab;
     private List<GameObject> walls;
@@ -38,11 +39,12 @@ public class GameManager : SingletonManager<GameManager>
         base.Awake();
         enemies = new List<Enemy>();
         walls = new List<GameObject>();
-        locks = new List<LockObject>();
+        locks = new List<GameObject>();
     }
     public void CreatePlayer(Vector3 worldPosition)
     {
         player = Instantiate(playerPrefab, worldPosition, new Quaternion(0, 0, 0, 0)).GetComponent<Player>();
+        player.CurrentPosition = worldPosition;
         arrowKeyManager.Player = player.gameObject;
     }
 
@@ -70,12 +72,13 @@ public class GameManager : SingletonManager<GameManager>
     public void CreateKey(Vector3 worldPosition)
     {
         var go = Instantiate(keyPrefab, worldPosition, new Quaternion());
+        key = go;
     }
 
     public void CreateLock(Vector3 worldPosition)
     {
         var go = Instantiate(lockPrefab, worldPosition, new Quaternion());
-        locks.Add(go.GetComponent<LockObject>());
+        locks.Add(go);
     }
 
     public void CreateObstacle(Vector3 worldPosition)
@@ -96,7 +99,7 @@ public class GameManager : SingletonManager<GameManager>
         player.HasKey = true;
         for (int i = 0; i < locks.Count; i++)
         {
-            locks[i].Unlock();
+            locks[i].GetComponent<LockObject>().Unlock();
         }
     }
     IEnumerator ClearEffect()
@@ -144,7 +147,14 @@ public class GameManager : SingletonManager<GameManager>
         {
             Destroy(walls[i].gameObject);
         }
+
+        for (int i = 0; i < locks.Count; i++)
+        {
+            if(locks[i]!= null)
+                Destroy(locks[i]);
+        }
         Destroy(player.gameObject);
+        if(key != null) Destroy(key.gameObject);
         enemies.Clear();
         walls.Clear();
         locks.Clear();
