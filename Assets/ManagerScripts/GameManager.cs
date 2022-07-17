@@ -62,7 +62,7 @@ public class GameManager : SingletonManager<GameManager>
                 int rnd = Random.Range(0, enemyPrefab.Length);
                 enemy = Instantiate(enemyPrefab[rnd], worldPosition, new Quaternion()).GetComponent<Enemy>();
                 break;
-                
+
         }
         enemies.Add(enemy);
     }
@@ -101,6 +101,8 @@ public class GameManager : SingletonManager<GameManager>
     }
     IEnumerator ClearEffect()
     {
+        SoundManager.Instance.SoundPlay(Random.Range(0, 2) == 0 ? "Clear_Sound2" : "Clear_Sound3", SoundType.SFX, 1, 1);
+        arrowKeyManager.OnMove = true;
         player.transform.GetChild(0).gameObject.SetActive(true);
         float value = 0;
         volume.profile.TryGetSettings(out Vignette vignette);
@@ -122,6 +124,7 @@ public class GameManager : SingletonManager<GameManager>
         GameReset();
         enemies.Clear();
         GameStage.Instance.NextStage();
+        arrowKeyManager.OnMove = false;
     }
     /// <summary>
     /// 게임 초기화시 사용
@@ -171,12 +174,14 @@ public class GameManager : SingletonManager<GameManager>
     {
         if (!isEnd)
         {
+            arrowKeyManager.OnMove = true;
             isEnd = true;
             StartCoroutine(GameOverCoroutine());
         }
     }
     IEnumerator GameOverCoroutine()
     {
+        SoundManager.Instance.SoundPlay("GameOver", SoundType.SFX, 1, 1);
         player.GetComponent<Animator>().Play("HitAnim");
         float value = 0;
         volume.profile.TryGetSettings(out Vignette vignette);
@@ -194,6 +199,7 @@ public class GameManager : SingletonManager<GameManager>
 
         GameReset();
         GameRestart();
+        arrowKeyManager.OnMove = false;
         isEnd = false;
     }
 
