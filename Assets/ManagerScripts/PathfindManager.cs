@@ -42,6 +42,7 @@ public class PathfindManager : SingletonManager<PathfindManager>
 
     private void Update()
     {
+        // Pathfind TEST
         if (Input.GetMouseButtonDown(0))
         {
             // var list = GetNeighborNodes(new Vector3(-2.5f, -1f, 0));
@@ -63,6 +64,11 @@ public class PathfindManager : SingletonManager<PathfindManager>
         }
     }
 
+    public TILE_TYPE GetTileType(Vector3 WorldPosition)
+    {
+        var worldTilemap =  GameStage.Instance.GetCurrentTilemap();
+        return worldTilemap.nodes[WorldPosition].Type;
+    }
 
 
     /// <summary>
