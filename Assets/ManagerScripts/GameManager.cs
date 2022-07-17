@@ -228,10 +228,11 @@ public class GameManager : SingletonManager<GameManager>
     {
         Debug.Log("enemy move finished");
         movingEnemies--;
+        PlayerCanMove = true;
+        Debug.Log("now player can move");
         if (movingEnemies <= 0)
         {
             movingEnemies = 0;
-            Debug.Log("now player can move");
             PlayerCanMove = true;
         }
     }

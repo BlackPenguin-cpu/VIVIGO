@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -67,7 +68,25 @@ public class PathfindManager : SingletonManager<PathfindManager>
     {
         var worldTilemap =  GameStage.Instance.GetCurrentTilemap();
         Debug.Log(WorldPosition);
-        return worldTilemap.nodes[WorldPosition].Type;
+        Node node = null;
+        if(GameStage.Instance.GetCurrentTilemap().nodes.TryGetValue(WorldPosition, out node))
+        {
+            return worldTilemap.nodes[WorldPosition].Type;
+        }
+        else
+        {
+            bool found = false;
+            var temp = GameStage.Instance.GetCurrentTilemap().nodes;
+            foreach (var n in temp)
+            {
+                if ((n.Key - WorldPosition).magnitude < 0.1f)
+                {
+                    return n.Value.Type;
+                }
+            }
+        }
+
+        return TILE_TYPE.OBSTACLE;
     }
 
 
@@ -81,23 +100,32 @@ public class PathfindManager : SingletonManager<PathfindManager>
         Tilemap tilemap = GameStage.Instance.GetCurrentTilemap().tilemap;
 
         bool success = true;
-        Vector3Int cellPos = tilemap.WorldToCell(WorldPosition);
         Node dstNode = null;
-        if (!GameStage.Instance.GetCurrentTilemap().nodes.TryGetValue(WorldPosition, out dstNode))
+        Vector3Int cellPos = tilemap.WorldToCell(WorldPosition);
+        if (tilemap.HasTile(cellPos))
         {
-            bool found = false;
-            var temp = GameStage.Instance.GetCurrentTilemap().nodes;
-            foreach (var node in temp)
+            var pos = tilemap.GetCellCenterWorld(cellPos);
+            Debug.Log(pos);
+            dstNode = GameStage.Instance.GetCurrentTilemap().nodes[pos];
+        }
+        if(dstNode == null)
+        {
+            if (!GameStage.Instance.GetCurrentTilemap().nodes.TryGetValue(WorldPosition, out dstNode))
             {
-                if ((node.Key - WorldPosition).magnitude < 0.1f)
+                bool found = false;
+                var temp = GameStage.Instance.GetCurrentTilemap().nodes;
+                foreach (var node in temp)
                 {
-                    found = true;
-                    break;
+                    if ((node.Key - WorldPosition).magnitude < 0.1f)
+                    {
+                        found = true;
+                        break;
+                    }
                 }
-            }
 
-            if (!found)
-                return false;
+                if (!found)
+                    return false;
+            }
         }
         if (dstNode == null) return false;
         if (dstNode.Type == TILE_TYPE.OBSTACLE) return false;
@@ -149,8 +177,14 @@ public class PathfindManager : SingletonManager<PathfindManager>
         ClearExploredTiles();
 
         Queue<Node> queue = new Queue<Node>();
-        var start = worldTilemap.nodes[src];
-        var dest = worldTilemap.nodes[dst];
+
+        var pos = worldTilemap.tilemap.WorldToCell(src);
+        var startPos = worldTilemap.tilemap.GetCellCenterWorld(pos);
+        var start = worldTilemap.nodes[startPos];
+
+        pos = worldTilemap.tilemap.WorldToCell(dst);
+        var destPos = worldTilemap.tilemap.GetCellCenterWorld(pos);
+        var dest = worldTilemap.nodes[destPos];
         queue.Enqueue(start);
         start.IsExplored = true;
         start.ExploredFrom = start;
