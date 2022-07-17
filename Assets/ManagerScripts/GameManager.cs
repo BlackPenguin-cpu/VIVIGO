@@ -47,6 +47,14 @@ public class GameManager : SingletonManager<GameManager>
     public void PlayerReachedGoal()
     {
         Debug.Log("플레이어 목표 타일 도달");
+        GameStage.Instance.NextStage();
+        // TODO: 스테이지또는 적 오브젝트를 Destroy?
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            Destroy(enemies[i].gameObject);
+        }
+        Destroy(player.gameObject);
+        enemies.Clear();
     }
 
     public Player GetPlayerObject()
