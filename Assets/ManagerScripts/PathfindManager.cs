@@ -83,7 +83,22 @@ public class PathfindManager : SingletonManager<PathfindManager>
         bool success = true;
         Vector3Int cellPos = tilemap.WorldToCell(WorldPosition);
         Node dstNode = null;
-        if (!GameStage.Instance.GetCurrentTilemap().nodes.TryGetValue(WorldPosition, out dstNode)) return false;
+        if (!GameStage.Instance.GetCurrentTilemap().nodes.TryGetValue(WorldPosition, out dstNode))
+        {
+            bool found = false;
+            var temp = GameStage.Instance.GetCurrentTilemap().nodes;
+            foreach (var node in temp)
+            {
+                if ((node.Key - WorldPosition).magnitude < 0.1f)
+                {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+                return false;
+        }
         if (dstNode == null) return false;
         if (dstNode.Type == TILE_TYPE.OBSTACLE) return false;
         if (dstNode.Type == TILE_TYPE.LOCK)
