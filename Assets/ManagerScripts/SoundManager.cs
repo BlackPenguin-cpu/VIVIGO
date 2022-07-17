@@ -25,7 +25,7 @@ public class SoundManager : SingletonManager<SoundManager>
             GameObject obj = new GameObject(i.ToString());
             AudioSources[i] = obj.AddComponent<AudioSource>();
             obj.transform.SetParent(gameObject.transform);
-            AudioVolumes[(SoundType)i] = 0.5f;
+            AudioVolumes[i] = 0.5f;
 
             if (i == SoundType.BGM)
             {
@@ -33,7 +33,7 @@ public class SoundManager : SingletonManager<SoundManager>
             }
         }
 
-        AudioClip[] audioClips = Resources.LoadAll<AudioClip>("/Sounds");
+        AudioClip[] audioClips = Resources.LoadAll<AudioClip>("Sounds/");
         foreach (AudioClip audioClip in audioClips)
         {
             m_Sounds[audioClip.name] = audioClip;
@@ -45,6 +45,7 @@ public class SoundManager : SingletonManager<SoundManager>
         {
             AudioSources[soundType].clip = m_Sounds[clipName];
             AudioSources[soundType].volume = volume * AudioVolumes[soundType];
+            AudioSources[soundType].Play();
         }
         else
         {
