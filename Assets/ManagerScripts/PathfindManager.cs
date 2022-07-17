@@ -65,7 +65,8 @@ public class PathfindManager : SingletonManager<PathfindManager>
 
     public TILE_TYPE GetTileType(Vector3 WorldPosition)
     {
-        var worldTilemap =  GameStage._Instance.GetCurrentTilemap();
+        var worldTilemap =  GameStage.Instance.GetCurrentTilemap();
+        Debug.Log(WorldPosition);
         return worldTilemap.nodes[WorldPosition].Type;
     }
 

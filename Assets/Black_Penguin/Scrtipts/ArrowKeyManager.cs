@@ -1,6 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
+using Quaternion = UnityEngine.Quaternion;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public enum ArrowKey
 {
@@ -120,9 +126,18 @@ public class ArrowKeyManager : MonoBehaviour
                 break;
         }
 
-        if (PathfindManager._Instance.CanMove(Player.transform.position + (Vector3)dir))
+        var destination = Player.transform.position + (Vector3)dir;
+        if (PathfindManager.Instance.CanMove(destination))
         {
-            StartCoroutine(PlayerMoveAction(Player.transform.position + (Vector3)dir));
+            if (PathfindManager.Instance.GetTileType(destination) == TILE_TYPE.ICE)
+            {
+                while (PathfindManager.Instance.CanMove(destination + (Vector3)dir) && PathfindManager.Instance.GetTileType(destination) == TILE_TYPE.ICE)
+                {
+                    destination += (Vector3)dir;
+                }
+            }
+            Player.GetComponent<Player>().CurrentPosition = destination;
+            StartCoroutine(PlayerMoveAction(destination));
         }
 
         PannalSetting();
@@ -151,7 +166,7 @@ public class ArrowKeyManager : MonoBehaviour
         GameObject obj = Instantiate(JumpEffect, Player.transform.position + Vector3.up * 0.3f, Quaternion.identity);
         Vector3 dir = vec - Player.transform.position;
         animator = Player.GetComponent<Animator>();
-        SoundManager._Instance.SoundPlay("BB_Jump_Sound", SoundType.SFX, 0.5f, 1);
+        SoundManager.Instance.SoundPlay("BB_Jump_Sound", SoundType.SFX, 0.5f, 1);
 
         animator.Play("JumpAnim");
         while (Player.transform.position != vec)
@@ -162,10 +177,33 @@ public class ArrowKeyManager : MonoBehaviour
         animator.Play("IdleAnim");
         OnMove = false;
         Destroy(obj);
-        TileCheck(dir);
-        GameManager._Instance.NextTurn();
+        // 얼음 이동
+        /*
+        if (PathfindManager.Instance.GetTileType(Player.transform.position) == TILE_TYPE.ICE)
+        {
+            if (PathfindManager.Instance.CanMove(Player.transform.position + dir))
+            {
+                while (Player.transform.position != Player.transform.position + dir)
+                {
+                    Player.transform.position = Vector3.MoveTowards(Player.transform.position, vec, Time.deltaTime * 3);
+                    yield return null;
+                }
+            }
+        }
+        else
+        {
+            if (PathfindManager.Instance.ReachedGoal(Player.transform.position))
+            {
+                GameManager.Instance.PlayerReachedGoal();
+            }
+        }
+        */
+        //TileCheck(dir);
+        Debug.Log("플레이어 움직임 끝남");
+        OnMove = false;
+        GameManager.Instance.NextTurn();
     }
-
+    
     public void ReRoll()
     {
         if (OnMove) return;

@@ -29,6 +29,7 @@ public class SingletonManager<T> : MonoBehaviour where T : MonoBehaviour
     protected virtual void Awake()
     {
         if (Instance == null) Instance = GetComponent<T>();
+        //DontDestroyOnLoad(gameObject);
     }
 
 }
