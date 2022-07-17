@@ -39,6 +39,11 @@ public class GameManager : SingletonManager<GameManager>
         var go = Instantiate(lockPrefab, worldPosition, new Quaternion());
     }
 
+    public void PlayerReachedGoal()
+    {
+        Debug.Log("플레이어 목표 타일 도달");
+    }
+
     public Player GetPlayerObject()
     {
         return player;
