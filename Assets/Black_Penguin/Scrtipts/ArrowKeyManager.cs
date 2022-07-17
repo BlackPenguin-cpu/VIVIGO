@@ -148,7 +148,7 @@ public class ArrowKeyManager : MonoBehaviour
         GameObject obj = Instantiate(JumpEffect, Player.transform.position + Vector3.up * 0.3f, Quaternion.identity);
         Vector3 dir = vec - Player.transform.position;
         animator = Player.GetComponent<Animator>();
-        SoundManager.Instance.SoundPlay("BB_Jump_Sound", SoundType.SFX, 1, 1);
+        SoundManager.Instance.SoundPlay("BB_Jump_Sound", SoundType.SFX, 0.5f, 1);
 
         animator.Play("JumpAnim");
         while (Player.transform.position != vec)
