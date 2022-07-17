@@ -32,6 +32,7 @@ public class ArrowKeyManager : MonoBehaviour
         }
 
         PannalSetting();
+        SoundManager.Instance.SoundPlay("BackGroundMusic", SoundType.BGM, 1, 1);
     }
     private void Update()
     {
@@ -119,13 +120,12 @@ public class ArrowKeyManager : MonoBehaviour
                 }
             }
         }
-        if(PathfindManager.Instance.ReachedGoal(Player.transform.position))
+        if (PathfindManager.Instance.ReachedGoal(Player.transform.position))
         {
             GameManager.Instance.PlayerReachedGoal();
         }
         PannalSetting();
 
-        GameManager.Instance.NextTurn();
     }
     public void ReRoll()
     {
