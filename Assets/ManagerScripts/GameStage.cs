@@ -35,6 +35,7 @@ public class GameStage : SingletonManager<GameStage>
             // 모든 스테이지 클리어
         }
     }
+    
 
     public WorldTilemap GetCurrentTilemap()
     {

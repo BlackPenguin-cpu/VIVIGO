@@ -18,6 +18,7 @@ public class GameManager : SingletonManager<GameManager>
     public GameObject lockPrefab;
 
     public GameObject[] wallPrefab;
+    private List<GameObject> walls;
 
     public ArrowKeyManager arrowKeyManager;
 
@@ -26,6 +27,7 @@ public class GameManager : SingletonManager<GameManager>
     {
         base.Awake();
         enemies = new List<Enemy>();
+        walls = new List<GameObject>();
     }
     public void CreatePlayer(Vector3 worldPosition)
     {
@@ -53,6 +55,7 @@ public class GameManager : SingletonManager<GameManager>
     {
         int rnd = Random.Range(0, wallPrefab.Length);
         var go = Instantiate(wallPrefab[rnd], worldPosition, new Quaternion());
+        walls.Add(go);
     }
 
     public void PlayerReachedGoal()
@@ -101,8 +104,9 @@ public class GameManager : SingletonManager<GameManager>
         {
             if (enemies[i].pursuit)
             {
-                enemies[i].Pursuit();
                 PlayerCanMove = false;
+                Debug.Log("now player can't move");
+                enemies[i].Pursuit();
             }
         }
     }
@@ -114,14 +118,17 @@ public class GameManager : SingletonManager<GameManager>
 
     public void EnemyMoveStarted()
     {
+        Debug.Log("enemy move started");
         movingEnemies++;
     }
     public void EnemyMoveFinished()
     {
+        Debug.Log("enemy move finished");
         movingEnemies--;
         if (movingEnemies <= 0)
         {
             movingEnemies = 0;
+            Debug.Log("now player can move");
             PlayerCanMove = true;
         }
     }

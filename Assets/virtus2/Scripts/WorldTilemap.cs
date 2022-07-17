@@ -92,10 +92,6 @@ public class WorldTilemap : MonoBehaviour
             }*/
         }
         
-        foreach (var n in nodes)
-        {
-            Debug.Log(n.Key + "::" + n.Value.WorldPosition);
-        }
         Debug.Log(nodes.Count);
         PathfindManager.Instance.SetNodes(StartNode, GoalNode);
     }
