@@ -204,7 +204,6 @@ public class ArrowKeyManager : MonoBehaviour
         if (PathfindManager.Instance.ReachedGoal(Player.transform.position))
         {
             GameManager.Instance.PlayerReachedGoal();
-            yield return null;
         }
         GameManager.Instance.NextTurn();
     }
