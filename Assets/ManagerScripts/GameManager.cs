@@ -85,6 +85,7 @@ public class GameManager : SingletonManager<GameManager>
     }
     IEnumerator ClearEffect()
     {
+        player.transform.GetChild(0).gameObject.SetActive(true);
         float value = 0;
         volume.profile.TryGetSettings(out Vignette vignette);
         Camera.main.transform.DOMove(FindObjectOfType<Player>().transform.position + new Vector3(0, 0, -10), 1).SetEase(Ease.InCirc);

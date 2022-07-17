@@ -175,6 +175,7 @@ public class ArrowKeyManager : MonoBehaviour
             yield return null;
         }
         animator.Play("IdleAnim");
+        OnMove = false;
         Destroy(obj);
         // 얼음 이동
         /*
