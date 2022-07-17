@@ -23,11 +23,12 @@ public class GameStage : SingletonManager<GameStage>
                 Stages[i].gameObject.SetActive(false);
         }
 
-        text.text = "Stage " + (currentStage+1).ToString();
+        text.text = "Stage " + (currentStage + 1).ToString();
     }
 
     public void NextStage()
     {
+        FindObjectOfType<ArrowKeyManager>().ReRoll();
         if (currentStage < Stages.Length)
         {
             Stages[currentStage].gameObject.SetActive(false);
