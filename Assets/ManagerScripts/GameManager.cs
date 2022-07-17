@@ -7,9 +7,11 @@ public class GameManager : SingletonManager<GameManager>
 
     public GameObject playerPrefab;
     private Player player;
+    public bool PlayerCanMove = true;
 
     public GameObject[] enemyPrefab;
     private List<Enemy> enemies;
+    public int movingEnemies = 0;
 
     public GameObject keyPrefab;
 
@@ -67,6 +69,21 @@ public class GameManager : SingletonManager<GameManager>
         for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i].Pursuit();
+        }
+        PlayerCanMove = false;
+    }
+
+    public void EnemyMoveStarted()
+    {
+        movingEnemies++;
+    }
+    public void EnemyMoveFinished()
+    {
+        movingEnemies--;
+        if (movingEnemies <= 0)
+        {
+            movingEnemies = 0;
+            PlayerCanMove = true;
         }
     }
     

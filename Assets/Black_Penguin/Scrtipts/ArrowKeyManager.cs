@@ -50,7 +50,7 @@ public class ArrowKeyManager : MonoBehaviour
     {
         float ver = Input.GetAxisRaw("Vertical");
         float hor = Input.GetAxisRaw("Horizontal");
-        if (Input.anyKeyDown && !OnMove)
+        if (Input.anyKeyDown && !OnMove && GameManager.Instance.PlayerCanMove)
         {
             if (hor == 1)
             {
@@ -123,8 +123,6 @@ public class ArrowKeyManager : MonoBehaviour
         }
 
         PannalSetting();
-
-        GameManager.Instance.NextTurn();
     }
     void TileCheck(Vector3 dir)
     {
@@ -162,6 +160,7 @@ public class ArrowKeyManager : MonoBehaviour
         Destroy(obj);
         TileCheck(dir);
         OnMove = false;
+        GameManager.Instance.NextTurn();
     }
 
     public void ReRoll()

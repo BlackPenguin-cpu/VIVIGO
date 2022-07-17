@@ -715,6 +715,7 @@ MonoBehaviour:
   - {fileID: 5104268582133314618, guid: 214ae2bdadbfb484c8ab60bc8c685d5d, type: 3}
   - {fileID: 221529030445109839, guid: ab3cfbe984b818045a748033bf0e84dc, type: 3}
   - {fileID: 180666187309378562, guid: 13d3a0a547d33e74ca92d8cfa9a696e0, type: 3}
+  OnMove: 0
   animator: {fileID: 0}
 --- !u!4 &343310757
 Transform:
@@ -987,7 +988,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stages: []
   StageGameObject: {fileID: 169154452}
-  currentStage: 11
+  currentStage: 9
 --- !u!4 &468787228
 Transform:
   m_ObjectHideFlags: 0

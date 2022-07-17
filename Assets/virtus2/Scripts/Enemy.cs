@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
 {
     public Player player;
     public bool pursuit;
+    private bool OnMove = false;
     public int movementCost;
     private void Awake()
     {
@@ -54,6 +55,8 @@ public class Enemy : MonoBehaviour
     public void MoveTo(Vector3 dst)
     {
         Vector3 dir = (dst - transform.position);
+        StartCoroutine(MoveAction(transform.position + dir));
+        /*
         if (PathfindManager.Instance.CanMove(transform.position + dir))
         {
             transform.position += dir;
@@ -69,6 +72,47 @@ public class Enemy : MonoBehaviour
                     break;
                 }
             }
+        }*/
+    }
+
+    void TileCheck(Vector3 dir)
+    {
+        // 얼음 이동
+        if (PathfindManager.Instance.GetTileType(transform.position) == TILE_TYPE.ICE)
+        {
+            if (PathfindManager.Instance.CanMove(transform.position + dir))
+            {
+                StartCoroutine(MoveAction(transform.position + dir));
+            }
         }
+        else
+        {
+            if (PathfindManager.Instance.ReachedGoal(transform.position))
+            {
+                GameManager.Instance.PlayerReachedGoal();
+            }
+        }
+    }
+
+    IEnumerator MoveAction(Vector3 vec)
+    {
+        GameManager.Instance.EnemyMoveStarted();
+        OnMove = true;
+        //GameObject obj = Instantiate(JumpEffect, Player.transform.position + Vector3.up * 0.3f, Quaternion.identity);
+        Vector3 dir = vec - transform.position;
+        //animator = Player.GetComponent<Animator>();
+        SoundManager.Instance.SoundPlay("BB_Jump_Sound", SoundType.SFX, 1, 1);
+
+        //animator.Play("JumpAnim");
+        while (transform.position != vec)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, vec, Time.deltaTime * 3);
+            yield return null;
+        }
+        //animator.Play("IdleAnim");
+        //Destroy(obj);
+        TileCheck(dir);
+        OnMove = false;
+        GameManager.Instance.EnemyMoveFinished();
     }
 }
