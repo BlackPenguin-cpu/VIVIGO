@@ -17,7 +17,7 @@ public class GameManager : SingletonManager<GameManager>
 
     public GameObject lockPrefab;
 
-    public GameObject wallPrefab;
+    public GameObject[] wallPrefab;
 
     public ArrowKeyManager arrowKeyManager;
 
@@ -50,7 +50,8 @@ public class GameManager : SingletonManager<GameManager>
 
     public void CreateObstacle(Vector3 worldPosition)
     {
-        var go = Instantiate(wallPrefab, worldPosition, new Quaternion());
+        int rnd = Random.Range(0, wallPrefab.Length);
+        var go = Instantiate(wallPrefab[rnd], worldPosition, new Quaternion());
     }
 
     public void PlayerReachedGoal()

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d89d04d4134662f4b8d90390ccdfa568, type: 3}
-  m_Name: obstacle
+  m_Name: "\uBCBD \uD0C0\uC77C"
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 41aba1fbc653ef34086ed9b185575951, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 434053a040744854783a3f6a9d837b75, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
     e01: 0
@@ -36,3 +36,4 @@ MonoBehaviour:
   m_ColliderType: 1
   Type: 1
   PlayerSpawn: 0
+  EnemyType: 0
