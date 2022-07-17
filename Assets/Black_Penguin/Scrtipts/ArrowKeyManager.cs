@@ -13,6 +13,7 @@ public class ArrowKeyManager : MonoBehaviour
 {
     public List<ArrowKey> arrowKeys = new List<ArrowKey>(5);
     public GameObject Player;
+    public GameObject JumpEffect;
     public GameObject ArrowKeyParentObj;
     public GameObject[] ArrowKeyObj;
 
@@ -144,6 +145,7 @@ public class ArrowKeyManager : MonoBehaviour
     }
     IEnumerator PlayerMoveAction(Vector3 vec)
     {
+        GameObject obj = Instantiate(JumpEffect, Player.transform.position + Vector3.up * 0.3f, Quaternion.identity);
         Vector3 dir = vec - Player.transform.position;
         animator = Player.GetComponent<Animator>();
         SoundManager.Instance.SoundPlay("BB_Jump_Sound", SoundType.SFX, 1, 1);
@@ -155,6 +157,7 @@ public class ArrowKeyManager : MonoBehaviour
             yield return null;
         }
         animator.Play("IdleAnim");
+        Destroy(obj);
         TileCheck(dir);
     }
 
