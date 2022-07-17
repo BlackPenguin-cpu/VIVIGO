@@ -23,7 +23,7 @@ public class GameManager : SingletonManager<GameManager>
     private GameObject key;
 
     public GameObject lockPrefab;
-    private List<LockObject> locks;
+    private List<GameObject> locks;
 
     public GameObject[] wallPrefab;
     private List<GameObject> walls;
@@ -39,7 +39,7 @@ public class GameManager : SingletonManager<GameManager>
         base.Awake();
         enemies = new List<Enemy>();
         walls = new List<GameObject>();
-        locks = new List<LockObject>();
+        locks = new List<GameObject>();
     }
     public void CreatePlayer(Vector3 worldPosition)
     {
@@ -78,7 +78,7 @@ public class GameManager : SingletonManager<GameManager>
     public void CreateLock(Vector3 worldPosition)
     {
         var go = Instantiate(lockPrefab, worldPosition, new Quaternion());
-        locks.Add(go.GetComponent<LockObject>());
+        locks.Add(go);
     }
 
     public void CreateObstacle(Vector3 worldPosition)
@@ -99,7 +99,7 @@ public class GameManager : SingletonManager<GameManager>
         player.HasKey = true;
         for (int i = 0; i < locks.Count; i++)
         {
-            locks[i].Unlock();
+            locks[i].GetComponent<LockObject>().Unlock();
         }
     }
     IEnumerator ClearEffect()
@@ -147,8 +147,8 @@ public class GameManager : SingletonManager<GameManager>
 
         for (int i = 0; i < locks.Count; i++)
         {
-            if(locks[i].gameObject != null)
-                Destroy(locks[i].gameObject);
+            if(locks[i]!= null)
+                Destroy(locks[i]);
         }
         Destroy(player.gameObject);
         if(key != null) Destroy(key.gameObject);

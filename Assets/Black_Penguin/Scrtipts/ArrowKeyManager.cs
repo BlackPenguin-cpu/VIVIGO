@@ -95,6 +95,8 @@ public class ArrowKeyManager : MonoBehaviour
     }
     public void MoveAction(int index)
     {
+        if (!GameManager.Instance.PlayerCanMove) return;
+        if (OnMove) return;
         for (int i = 0; i < arrowKeys.Count + 1; i++)
         {
             if (i == arrowKeys.Count)
