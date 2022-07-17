@@ -28,7 +28,7 @@ public class GameManager : SingletonManager<GameManager>
 
     public PostProcessVolume volume;
     public RectTransform ClearUI;
-    private void Awake()
+    protected override void Awake()
     {
         base.Awake();
         enemies = new List<Enemy>();

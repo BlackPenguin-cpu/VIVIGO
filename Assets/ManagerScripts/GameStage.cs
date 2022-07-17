@@ -9,7 +9,7 @@ public class GameStage : SingletonManager<GameStage>
     public GameObject StageGameObject;
     public int currentStage;
 
-    private void Awake()
+    protected override void Awake()
     {
         base.Awake();
         Stages = StageGameObject.GetComponentsInChildren<WorldTilemap>(true);
@@ -17,11 +17,11 @@ public class GameStage : SingletonManager<GameStage>
         Stages[currentStage].gameObject.SetActive(true);
         for (int i = 0; i < Stages.Length; i++)
         {
-            if(i != currentStage)
+            if (i != currentStage)
                 Stages[i].gameObject.SetActive(false);
         }
     }
-    
+
     public void NextStage()
     {
         if (currentStage < Stages.Length)
@@ -35,7 +35,7 @@ public class GameStage : SingletonManager<GameStage>
             // 모든 스테이지 클리어
         }
     }
-    
+
 
     public WorldTilemap GetCurrentTilemap()
     {
