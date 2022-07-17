@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7452197283226583263}
   - component: {fileID: 8637629083217464475}
   - component: {fileID: 3296036401726357044}
+  - component: {fileID: -7210917426836945618}
   m_Layer: 0
   m_Name: Dice
   m_TagString: Untagged
@@ -102,3 +103,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-7210917426836945618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575549278515309544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19b524d1dac7ccb47bece589ccb6c978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dice: {fileID: 575549278515309544}
+  animator: {fileID: 0}

@@ -5,18 +5,17 @@ using UnityEngine;
 public class DiceRoll : MonoBehaviour
 {
     public GameObject dice;
-    public Transform src;
-    public Transform dst;
-    public Animation animation;
+    public Animator animator;
 
     private void Start()
     {
         dice.SetActive(false);
+        animator = GetComponent<Animator>();
     }
     public void RollTheDice()
     {
         dice.SetActive(true);
-        animation.Play();
+        animator.Play("Dice");
         StartCoroutine(Wait());
     }
 
