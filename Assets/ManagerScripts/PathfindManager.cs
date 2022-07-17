@@ -149,14 +149,14 @@ public class PathfindManager : SingletonManager<PathfindManager>
                 reached = true;
                 break;
             }
-            Debug.Log("현재 타일 위치: " + currentTile.WorldPosition);
+            //Debug.Log("현재 타일 위치: " + currentTile.WorldPosition);
             // 상 하 좌 우 
             List<Node> neighbors = GetNeighborNodes(currentTile.WorldPosition);
-            Debug.Log("이웃 타일 개수: " + neighbors.Count);
+            //Debug.Log("이웃 타일 개수: " + neighbors.Count);
             for (int i = 0; i < neighbors.Count; i++)
             {
-                Debug.Log("이웃 타일 위치: " + neighbors[i].WorldPosition);
-                if (neighbors[i].IsExplored || neighbors[i].Type == TILE_TYPE.OBSTACLE) continue;
+                //Debug.Log("이웃 타일 위치: " + neighbors[i].WorldPosition);
+                if (neighbors[i].IsExplored || neighbors[i].Type == TILE_TYPE.OBSTACLE || neighbors[i].Type == TILE_TYPE.LOCK) continue;
                 neighbors[i].Cost = currentTile.Cost + 1;
                 neighbors[i].ExploredFrom = currentTile;
                 neighbors[i].IsExplored = true;
@@ -199,9 +199,9 @@ public class PathfindManager : SingletonManager<PathfindManager>
             var position = currentPosition + nextPositions;
             if (!worldTilemap.nodes.ContainsKey(position)) continue;
             
-            Debug.Log(position.x + ", " + position.y + "좌표의 타일을 리스트에 넣는다.");
+            //Debug.Log(position.x + ", " + position.y + "좌표의 타일을 리스트에 넣는다.");
             Node neighbor = worldTilemap.nodes[position]; 
-            Debug.Log(neighbor.WorldPosition + "를 넣었다.");
+            //Debug.Log(neighbor.WorldPosition + "를 넣었다.");
 
 
             neighbors.Add(neighbor);
