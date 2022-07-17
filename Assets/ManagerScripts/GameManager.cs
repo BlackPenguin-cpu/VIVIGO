@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class GameManager : SingletonManager<GameManager>
 {
-
     public GameObject playerPrefab;
     private Player player;
 
@@ -36,7 +34,7 @@ public class GameManager : SingletonManager<GameManager>
 
     public void CreateKey(Vector3 worldPosition)
     {
-        var go = Instantiate(keyPrefab, worldPosition, new Quaternion());   
+        var go = Instantiate(keyPrefab, worldPosition, new Quaternion());
     }
 
     public void CreateLock(Vector3 worldPosition)
@@ -56,7 +54,26 @@ public class GameManager : SingletonManager<GameManager>
         Destroy(player.gameObject);
         enemies.Clear();
     }
+    IEnumerator ClearEffect()
+    {
+        while (true)
+        {
 
+            yield return null;
+        }
+    }
+    /// <summary>
+    /// 게임 초기화시 사용
+    /// </summary>
+    public void GameReset()
+    {
+        PathfindManager.Instance.ClearExploredTiles();
+        Destroy(FindObjectOfType<Player>().gameObject);
+        foreach (Enemy enemy in FindObjectsOfType<Enemy>())
+        {
+            Destroy(enemy.gameObject);
+        }
+    }
     public Player GetPlayerObject()
     {
         return player;
@@ -69,6 +86,6 @@ public class GameManager : SingletonManager<GameManager>
             enemies[i].Pursuit();
         }
     }
-    
-    
+
+
 }
