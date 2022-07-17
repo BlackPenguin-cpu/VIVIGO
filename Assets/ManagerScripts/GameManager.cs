@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
+using DG.Tweening;
 public class GameManager : SingletonManager<GameManager>
 {
     public GameObject playerPrefab;
@@ -24,6 +26,7 @@ public class GameManager : SingletonManager<GameManager>
 
     public ArrowKeyManager arrowKeyManager;
 
+    public PostProcessVolume volume;
     private void Awake()
     {
         base.Awake();
@@ -82,11 +85,20 @@ public class GameManager : SingletonManager<GameManager>
     }
     IEnumerator ClearEffect()
     {
-        while (true)
+        float value = 0;
+        volume.profile.TryGetSettings(out Vignette vignette);
+        Camera.main.transform.DOMove(FindObjectOfType<Player>().transform.position + new Vector3(0, 0, -10), 1).SetEase(Ease.InCirc);
+        while (value < 1)
         {
-
+            vignette.intensity.value = value;
+            value += Time.deltaTime;
             yield return null;
         }
+        yield return new WaitForSeconds(1);
+        vignette.intensity.value = 0;
+        GameReset();
+        enemies.Clear();
+        GameStage.Instance.NextStage();
     }
     /// <summary>
     /// 게임 초기화시 사용

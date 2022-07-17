@@ -11,6 +11,7 @@ public enum ArrowKey
 }
 public class ArrowKeyManager : MonoBehaviour
 {
+    readonly int maxArrowKeysCount = 7;
     public List<ArrowKey> arrowKeys = new List<ArrowKey>(5);
     public GameObject Player;
     public GameObject JumpEffect;
@@ -24,10 +25,10 @@ public class ArrowKeyManager : MonoBehaviour
     {
         // 처음 리롤할 때만 적이 추적안하니 따로 처리
         // 이후에는 ReRoll()함수 호출
-        if (arrowKeys.Count > 4) return;
+        if (arrowKeys.Count >= maxArrowKeysCount) return;
 
         arrowKeys.Clear();
-        while (arrowKeys.Count < 5)
+        while (arrowKeys.Count < maxArrowKeysCount)
         {
             ArrowKey key = (ArrowKey)Random.Range(0, 4);
             if (arrowKeys.FindAll(x => x == key).Count >= 2)
@@ -168,7 +169,7 @@ public class ArrowKeyManager : MonoBehaviour
         if (OnMove) return;
 
         arrowKeys.Clear();
-        while (arrowKeys.Count < 5)
+        while (arrowKeys.Count < maxArrowKeysCount)
         {
             ArrowKey key = (ArrowKey)Random.Range(0, 4);
             if (arrowKeys.FindAll(x => x == key).Count >= 2)
