@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using DG.Tweening;
@@ -15,6 +16,8 @@ public class GameManager : SingletonManager<GameManager>
     public GameObject[] enemyPrefab;
     private List<Enemy> enemies;
     public int movingEnemies = 0;
+
+    public GameObject vinePrefab;
 
     public GameObject keyPrefab;
 
@@ -49,8 +52,19 @@ public class GameManager : SingletonManager<GameManager>
     }
     public void CreateMonster(Vector3 worldPosition, ENEMY_TYPE enemyType)
     {
-        var go = Instantiate(enemyPrefab[(int)enemyType], worldPosition, new Quaternion()).GetComponent<Enemy>();
-        enemies.Add(go);
+        Enemy enemy = null;
+        switch (enemyType)
+        {
+            case ENEMY_TYPE.VINE:
+                enemy = Instantiate(vinePrefab, worldPosition, new Quaternion()).GetComponent<Enemy>();
+                break;
+            case ENEMY_TYPE.CAT:
+                int rnd = Random.Range(0, enemyPrefab.Length);
+                enemy = Instantiate(enemyPrefab[rnd], worldPosition, new Quaternion()).GetComponent<Enemy>();
+                break;
+                
+        }
+        enemies.Add(enemy);
     }
 
     public void CreateKey(Vector3 worldPosition)

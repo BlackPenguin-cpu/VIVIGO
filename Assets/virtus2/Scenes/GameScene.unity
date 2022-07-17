@@ -5068,9 +5068,9 @@ MonoBehaviour:
   grandmaPrefab: {fileID: 7111571470940269767, guid: 21995601ae3789241b9cdc3a31aa2c81, type: 3}
   enemyPrefab:
   - {fileID: 2927528458427305534, guid: 649aee3c993007242a5ce93c40e443e2, type: 3}
-  - {fileID: 2927528458427305534, guid: 649aee3c993007242a5ce93c40e443e2, type: 3}
-  - {fileID: 6658254694767601493, guid: f52499f03b43d19479b38542a09ecdf4, type: 3}
+  - {fileID: 1904863099784418596, guid: 4b3c3a52e688bed4a850b51b5807a21a, type: 3}
   movingEnemies: 0
+  vinePrefab: {fileID: 6658254694767601493, guid: f52499f03b43d19479b38542a09ecdf4, type: 3}
   keyPrefab: {fileID: 5231431060183135531, guid: 9c68230fa860b1d499958048d693aced, type: 3}
   lockPrefab: {fileID: 5567556475390532152, guid: 2151602f5be732c41b9903053fece28b, type: 3}
   wallPrefab:
@@ -5081,6 +5081,7 @@ MonoBehaviour:
   arrowKeyManager: {fileID: 343310756}
   volume: {fileID: 1492179434}
   ClearUI: {fileID: 1351167922}
+  isEnd: 0
 --- !u!4 &518628094
 Transform:
   m_ObjectHideFlags: 0
