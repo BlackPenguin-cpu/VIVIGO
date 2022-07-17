@@ -4193,7 +4193,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stages: []
   StageGameObject: {fileID: 169154452}
-  currentStage: 9
+  currentStage: 0
+  text: {fileID: 926006427}
 --- !u!4 &468787228
 Transform:
   m_ObjectHideFlags: 0
@@ -9639,8 +9640,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Stage N
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c8622b45f1b55c24cb63c3c2dc036bb7, type: 2}
+  m_sharedMaterial: {fileID: 8697586489891084559, guid: c8622b45f1b55c24cb63c3c2dc036bb7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Transactions;
+using TMPro;
 using UnityEngine;
 
 public class GameStage : SingletonManager<GameStage>
@@ -9,6 +10,7 @@ public class GameStage : SingletonManager<GameStage>
     public GameObject StageGameObject;
     public int currentStage;
 
+    public TextMeshProUGUI text;
     protected override void Awake()
     {
         base.Awake();
@@ -20,6 +22,8 @@ public class GameStage : SingletonManager<GameStage>
             if (i != currentStage)
                 Stages[i].gameObject.SetActive(false);
         }
+
+        text.text = "Stage " + (currentStage+1).ToString();
     }
 
     public void NextStage()
@@ -29,6 +33,7 @@ public class GameStage : SingletonManager<GameStage>
             Stages[currentStage].gameObject.SetActive(false);
             currentStage++;
             Stages[currentStage].gameObject.SetActive(true);
+            text.text = "Stage " + currentStage;
         }
         else
         {
