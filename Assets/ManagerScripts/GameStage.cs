@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Transactions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameStage : SingletonManager<GameStage>
 {
@@ -39,6 +40,7 @@ public class GameStage : SingletonManager<GameStage>
         else
         {
             // 모든 스테이지 클리어
+            SceneManager.LoadScene("EndingScene");
         }
     }
 
