@@ -988,7 +988,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stages: []
   StageGameObject: {fileID: 169154452}
-  currentStage: 6
+  currentStage: 9
 --- !u!4 &468787228
 Transform:
   m_ObjectHideFlags: 0
@@ -1667,6 +1667,7 @@ MonoBehaviour:
   movingEnemies: 0
   keyPrefab: {fileID: 5231431060183135531, guid: 9c68230fa860b1d499958048d693aced, type: 3}
   lockPrefab: {fileID: 5567556475390532152, guid: 2151602f5be732c41b9903053fece28b, type: 3}
+  wallPrefab: {fileID: 0}
   arrowKeyManager: {fileID: 343310756}
 --- !u!4 &518628094
 Transform:

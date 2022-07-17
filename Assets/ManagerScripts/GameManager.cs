@@ -17,6 +17,8 @@ public class GameManager : SingletonManager<GameManager>
 
     public GameObject lockPrefab;
 
+    public GameObject wallPrefab;
+
     public ArrowKeyManager arrowKeyManager;
 
     private void Awake()
@@ -44,6 +46,11 @@ public class GameManager : SingletonManager<GameManager>
     public void CreateLock(Vector3 worldPosition)
     {
         var go = Instantiate(lockPrefab, worldPosition, new Quaternion());
+    }
+
+    public void CreateObstacle(Vector3 worldPosition)
+    {
+        var go = Instantiate(wallPrefab, worldPosition, new Quaternion());
     }
 
     public void PlayerReachedGoal()

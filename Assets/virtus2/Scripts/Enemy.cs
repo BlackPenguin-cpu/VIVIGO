@@ -83,15 +83,12 @@ public class Enemy : MonoBehaviour
         {
             if (PathfindManager.Instance.CanMove(transform.position + dir))
             {
-                StartCoroutine(MoveAction(transform.position + dir));
+                //StartCoroutine(MoveAction(transform.position + dir));
             }
         }
         else
         {
-            if (PathfindManager.Instance.ReachedGoal(transform.position))
-            {
-                GameManager.Instance.PlayerReachedGoal();
-            }
+
         }
     }
 
@@ -118,8 +115,8 @@ public class Enemy : MonoBehaviour
 
         var v = player.transform.position - transform.position;
         if(v.normalized.y < 0)
-            GetComponent<SpriteRenderer>().flipX = true;
-        else
             GetComponent<SpriteRenderer>().flipX = false;
+        else
+            GetComponent<SpriteRenderer>().flipX = true;
     }
 }
