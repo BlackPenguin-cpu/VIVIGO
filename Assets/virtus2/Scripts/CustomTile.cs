@@ -18,6 +18,7 @@ public enum ENEMY_TYPE
 {
     NONE,
     CAT,
+    VINE,
     WOLF,
     RABBIT_WOLF
 }

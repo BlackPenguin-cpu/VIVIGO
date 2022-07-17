@@ -6,6 +6,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public Player player;
+    public bool pursuit;
     public int movementCost;
     private void Awake()
     {
@@ -14,6 +15,7 @@ public class Enemy : MonoBehaviour
 
     public void Pursuit()
     {
+        if (!pursuit) return;
         if (player == null) player = GameManager.Instance.GetPlayerObject();
         // 이동하려는 타일 찾기
         var path = PathfindManager.Instance.GetPath(this.transform.position, player.transform.position);
