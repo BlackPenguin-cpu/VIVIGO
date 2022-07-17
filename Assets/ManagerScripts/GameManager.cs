@@ -28,6 +28,8 @@ public class GameManager : SingletonManager<GameManager>
 
     public PostProcessVolume volume;
     public RectTransform ClearUI;
+
+    public bool isEnd;
     protected override void Awake()
     {
         base.Awake();
@@ -152,9 +154,32 @@ public class GameManager : SingletonManager<GameManager>
 
     public void GameOver()
     {
-        //
+        if (!isEnd)
+        {
+            isEnd = true;
+            StartCoroutine(GameOverCoroutine());
+        }
+    }
+    IEnumerator GameOverCoroutine()
+    {
+        player.GetComponent<Animator>().Play("HitAnim");
+        float value = 0;
+        volume.profile.TryGetSettings(out Vignette vignette);
+        Camera.main.transform.DOMove(FindObjectOfType<Player>().transform.position + new Vector3(0, 0, -10), 1).SetEase(Ease.InCirc);
+        while (value < 1)
+        {
+            vignette.intensity.value = value;
+            value += Time.deltaTime;
+            yield return null;
+        }
+        yield return new WaitForSeconds(1);
+
+        Camera.main.transform.position = new Vector3(0, 0, -10);
+        vignette.intensity.value = 0;
+
         GameReset();
         GameRestart();
+        isEnd = false;
     }
 
     public void GameRestart()
