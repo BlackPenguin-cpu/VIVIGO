@@ -146,7 +146,8 @@ public class GameManager : SingletonManager<GameManager>
 
         for (int i = 0; i < locks.Count; i++)
         {
-            Destroy(locks[i].gameObject);
+            if(locks[i].gameObject != null)
+                Destroy(locks[i].gameObject);
         }
         Destroy(player.gameObject);
         if(key != null) Destroy(key.gameObject);
