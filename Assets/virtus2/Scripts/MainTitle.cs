@@ -10,9 +10,10 @@ public class MainTitle : MonoBehaviour
     {
         if (Input.anyKeyDown)
         {
+            SoundManager.Instance.SoundPlay("Click", SoundType.SFX, 1, 1);
             SceneManager.LoadScene("GameScene");
         }
     }
-    
+
 
 }

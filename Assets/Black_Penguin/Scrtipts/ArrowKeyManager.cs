@@ -207,11 +207,12 @@ public class ArrowKeyManager : MonoBehaviour
         }
         GameManager.Instance.NextTurn();
     }
-    
+
     public void ReRoll()
     {
         if (OnMove) return;
 
+        SoundManager.Instance.SoundPlay("Dice_Sound", SoundType.SFX, 1, 1);
         arrowKeys.Clear();
         while (arrowKeys.Count < maxArrowKeysCount)
         {
