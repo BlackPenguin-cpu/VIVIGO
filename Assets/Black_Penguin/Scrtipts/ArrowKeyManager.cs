@@ -97,7 +97,14 @@ public class ArrowKeyManager : MonoBehaviour
             // 얼음 이동
             while (PathfindManager.Instance.GetTileType(Player.transform.position) == TILE_TYPE.ICE)
             {
-                Player.transform.position += (Vector3)dir;
+                if (PathfindManager.Instance.CanMove(Player.transform.position + (Vector3)dir))
+                {
+                    Player.transform.position += (Vector3)dir;
+                }
+                else
+                {
+                    break;
+                }
             }
         }
         if(PathfindManager.Instance.ReachedGoal(Player.transform.position))
