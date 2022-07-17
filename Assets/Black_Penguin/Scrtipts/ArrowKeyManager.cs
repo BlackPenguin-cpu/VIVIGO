@@ -64,7 +64,7 @@ public class ArrowKeyManager : MonoBehaviour
         {
             if (i == arrowKeys.Count)
             {
-                Debug.Log("Å°°¡ ¾ø³×¿ä ¤Ğ¤Ğ");
+                Debug.Log("í•´ë‹¹ ë°©í–¥í‚¤ ì—†ìŒ");
                 return;
             }
             if (arrowKeys[i] == (ArrowKey)index)
@@ -94,6 +94,22 @@ public class ArrowKeyManager : MonoBehaviour
         if (PathfindManager.Instance.CanMove(Player.transform.position + (Vector3)dir))
         {
             Player.transform.position += (Vector3)dir;
+            // ì–¼ìŒ ì´ë™
+            while (PathfindManager.Instance.GetTileType(Player.transform.position) == TILE_TYPE.ICE)
+            {
+                if (PathfindManager.Instance.CanMove(Player.transform.position + (Vector3)dir))
+                {
+                    Player.transform.position += (Vector3)dir;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+        if(PathfindManager.Instance.ReachedGoal(Player.transform.position))
+        {
+            GameManager.Instance.PlayerReachedGoal();
         }
         PannalSetting();
 

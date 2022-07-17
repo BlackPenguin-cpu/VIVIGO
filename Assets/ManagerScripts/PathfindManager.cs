@@ -42,6 +42,7 @@ public class PathfindManager : SingletonManager<PathfindManager>
 
     private void Update()
     {
+        // Pathfind TEST
         if (Input.GetMouseButtonDown(0))
         {
             // var list = GetNeighborNodes(new Vector3(-2.5f, -1f, 0));
@@ -63,6 +64,11 @@ public class PathfindManager : SingletonManager<PathfindManager>
         }
     }
 
+    public TILE_TYPE GetTileType(Vector3 WorldPosition)
+    {
+        var worldTilemap =  GameStage.Instance.GetCurrentTilemap();
+        return worldTilemap.nodes[WorldPosition].Type;
+    }
 
 
     /// <summary>
@@ -76,7 +82,8 @@ public class PathfindManager : SingletonManager<PathfindManager>
 
         bool success = true;
         Vector3Int cellPos = tilemap.WorldToCell(WorldPosition);
-        var dstNode = GameStage.Instance.GetCurrentTilemap().nodes[WorldPosition];
+        Node dstNode = null;
+        if (!GameStage.Instance.GetCurrentTilemap().nodes.TryGetValue(WorldPosition, out dstNode)) return false;
         if (dstNode == null) return false;
         if (dstNode.Type == TILE_TYPE.OBSTACLE) return false;
         if (dstNode.Type == TILE_TYPE.LOCK)

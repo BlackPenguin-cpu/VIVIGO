@@ -24,9 +24,16 @@ public class GameStage : SingletonManager<GameStage>
     
     public void NextStage()
     {
-        Stages[currentStage].gameObject.SetActive(false);
-        currentStage++;
-        Stages[currentStage].gameObject.SetActive(true);
+        if (currentStage < Stages.Length)
+        {
+            Stages[currentStage].gameObject.SetActive(false);
+            currentStage++;
+            Stages[currentStage].gameObject.SetActive(true);
+        }
+        else
+        {
+            // 모든 스테이지 클리어
+        }
     }
 
     public WorldTilemap GetCurrentTilemap()
