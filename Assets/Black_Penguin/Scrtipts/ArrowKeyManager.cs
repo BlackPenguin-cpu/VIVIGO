@@ -21,6 +21,8 @@ public class ArrowKeyManager : MonoBehaviour
 
     public Animator animator;
 
+    public DiceRoll dice;
+
     private void Start()
     {
         // 처음 리롤할 때만 적이 추적안하니 따로 처리
@@ -177,6 +179,8 @@ public class ArrowKeyManager : MonoBehaviour
             arrowKeys.Add(key);
         }
         PannalSetting();
+
+        dice.RollTheDice();
 
         GameManager.Instance.NextTurn();
     }
