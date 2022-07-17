@@ -48,9 +48,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    public void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision != null && collision.gameObject.tag == "Player")
+        if (collision != null && collision.gameObject.tag == "Player" && collision.transform.position == this.transform.position)
         {
             Debug.Log("Player Attack");
             GameManager.Instance.GameOver();
