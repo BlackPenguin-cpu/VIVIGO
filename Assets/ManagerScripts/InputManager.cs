@@ -22,5 +22,10 @@ public class InputManager : SingletonManager<InputManager>
             // TODO: 나중에 바꿔야할 수도 있을까
             GameManager.Instance.PlayerReachedGoal();
         }
+
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 }
