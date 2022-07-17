@@ -146,11 +146,11 @@ public class ArrowKeyManager : MonoBehaviour
     {
         Vector3 dir = vec - Player.transform.position;
         animator = Player.GetComponent<Animator>();
+        SoundManager.Instance.SoundPlay("BB_Jump_Sound", SoundType.SFX, 1, 1);
 
         animator.Play("JumpAnim");
         while (Player.transform.position != vec)
         {
-            Debug.Log("asd");
             Player.transform.position = Vector3.MoveTowards(Player.transform.position, vec, Time.deltaTime * 3);
             yield return null;
         }
