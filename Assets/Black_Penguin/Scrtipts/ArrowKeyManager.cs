@@ -40,11 +40,11 @@ public class ArrowKeyManager : MonoBehaviour
 
         PannalSetting();
 
-
         SoundManager.Instance.SoundPlay("BackGroundMusic", SoundType.BGM, 1, 1);
     }
     private void Update()
     {
+        Player = FindObjectOfType<Player>().gameObject;
         MoveInput();
         if (Input.GetKeyDown(KeyCode.Space))
             ReRoll();
