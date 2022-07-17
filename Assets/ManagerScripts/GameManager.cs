@@ -75,7 +75,9 @@ public class GameManager : SingletonManager<GameManager>
             value += Time.deltaTime;
             yield return null;
         }
-        yield return new WaitForSeconds(1);
+        player.GetComponent<Animator>().Play("JumpAnim");
+        player.transform.DOMove(player.transform.position + Vector3.right * 3, 3);
+        yield return new WaitForSeconds(4);
         vignette.intensity.value = 0;
         GameReset();
         enemies.Clear();
