@@ -16,6 +16,7 @@ public class ArrowKeyManager : MonoBehaviour
     public GameObject JumpEffect;
     public GameObject ArrowKeyParentObj;
     public GameObject[] ArrowKeyObj;
+    public bool OnMove;
 
     public Animator animator;
 
@@ -49,7 +50,7 @@ public class ArrowKeyManager : MonoBehaviour
     {
         float ver = Input.GetAxisRaw("Vertical");
         float hor = Input.GetAxisRaw("Horizontal");
-        if (Input.anyKeyDown)
+        if (Input.anyKeyDown && !OnMove)
         {
             if (hor == 1)
             {
@@ -145,6 +146,7 @@ public class ArrowKeyManager : MonoBehaviour
     }
     IEnumerator PlayerMoveAction(Vector3 vec)
     {
+        OnMove = true;
         GameObject obj = Instantiate(JumpEffect, Player.transform.position + Vector3.up * 0.3f, Quaternion.identity);
         Vector3 dir = vec - Player.transform.position;
         animator = Player.GetComponent<Animator>();
@@ -159,6 +161,7 @@ public class ArrowKeyManager : MonoBehaviour
         animator.Play("IdleAnim");
         Destroy(obj);
         TileCheck(dir);
+        OnMove = false;
     }
 
     public void ReRoll()
