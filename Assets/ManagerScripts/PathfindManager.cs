@@ -43,12 +43,11 @@ public class PathfindManager : SingletonManager<PathfindManager>
     private void Update()
     {
         // Pathfind TEST
+        /*
         if (Input.GetMouseButtonDown(0))
         {
             // var list = GetNeighborNodes(new Vector3(-2.5f, -1f, 0));
             // Debug.Log(list.Count);
-            Debug.Log(GameManager.Instance.GetPlayerObject());
-            Debug.Log(EndNode.WorldPosition);
             var path = GetPath(GameManager.Instance.GetPlayerObject().transform.position, EndNode.WorldPosition);
             if (path != null)
             {
@@ -60,8 +59,8 @@ public class PathfindManager : SingletonManager<PathfindManager>
                     Debug.DrawLine(path[i-1].WorldPosition, path[i].WorldPosition, Color.red, 5.0f);
                 }
             }
-            
         }
+        */
     }
 
     public TILE_TYPE GetTileType(Vector3 WorldPosition)
@@ -216,6 +215,7 @@ public class PathfindManager : SingletonManager<PathfindManager>
         foreach (var tile in dict)
         {
             tile.Value.IsExplored = false;
+            tile.Value.Cost = 0;
         }
     }
 }

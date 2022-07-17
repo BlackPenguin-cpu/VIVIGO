@@ -20,7 +20,19 @@ public class ArrowKeyManager : MonoBehaviour
 
     private void Start()
     {
-        ReRoll();
+        // 처음 리롤할 때만 적이 추적안하니 따로 처리
+        // 이후에는 ReRoll()함수 호출
+        if (arrowKeys.Count > 4) return;
+
+        arrowKeys.Clear();
+        while (arrowKeys.Count < 5)
+        {
+            ArrowKey key = (ArrowKey)Random.Range(0, 4);
+            if (arrowKeys.FindAll(x => x == key).Count >= 2)
+                continue;
+            arrowKeys.Add(key);
+        }
+
         PannalSetting();
 
 
@@ -112,7 +124,9 @@ public class ArrowKeyManager : MonoBehaviour
             GameManager.Instance.PlayerReachedGoal();
         }
         PannalSetting();
-        SoundManager.Instance.SoundPlay("BB_Jump_Sound", SoundType.SFX, 1, 1);
+
+        GameManager.Instance.NextTurn();
+
     }
     void TileCheck()
     {
@@ -152,5 +166,7 @@ public class ArrowKeyManager : MonoBehaviour
             arrowKeys.Add(key);
         }
         PannalSetting();
+
+        GameManager.Instance.NextTurn();
     }
 }
