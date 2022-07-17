@@ -126,6 +126,8 @@ public class ArrowKeyManager : MonoBehaviour
         }
         PannalSetting();
 
+        GameManager.Instance.NextTurn();
+
     }
     public void ReRoll()
     {
