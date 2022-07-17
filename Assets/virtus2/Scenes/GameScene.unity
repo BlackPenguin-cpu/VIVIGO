@@ -988,7 +988,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stages: []
   StageGameObject: {fileID: 169154452}
-  currentStage: 9
+  currentStage: 6
 --- !u!4 &468787228
 Transform:
   m_ObjectHideFlags: 0
@@ -1659,10 +1659,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 6794516926238596314, guid: 8baab677b01249b459d6e6ba9df61d72, type: 3}
+  PlayerCanMove: 1
   enemyPrefab:
   - {fileID: 2927528458427305534, guid: 649aee3c993007242a5ce93c40e443e2, type: 3}
   - {fileID: 2927528458427305534, guid: 649aee3c993007242a5ce93c40e443e2, type: 3}
   - {fileID: 6658254694767601493, guid: f52499f03b43d19479b38542a09ecdf4, type: 3}
+  movingEnemies: 0
   keyPrefab: {fileID: 5231431060183135531, guid: 9c68230fa860b1d499958048d693aced, type: 3}
   lockPrefab: {fileID: 5567556475390532152, guid: 2151602f5be732c41b9903053fece28b, type: 3}
   arrowKeyManager: {fileID: 343310756}
