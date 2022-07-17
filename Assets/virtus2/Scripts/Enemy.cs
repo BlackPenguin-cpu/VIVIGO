@@ -42,7 +42,9 @@ public class Enemy : MonoBehaviour
         }
         else
         {
+            Debug.Log("추적 실패");
             // 이동하려는 타일이 없음. 가만히 있기
+            GameManager.Instance.EnemyMoveFinished();
         }
     }
 
