@@ -99,6 +99,7 @@ public class GameManager : SingletonManager<GameManager>
         yield return new WaitForSeconds(2);
         ClearUI.DOScaleX(1, 1);
         yield return new WaitForSeconds(2);
+        Camera.main.transform.position = new Vector3(0, 0, -10);
         ClearUI.localScale = new Vector3(0, 1, 1);
         vignette.intensity.value = 0;
         GameReset();
