@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/virtus2/Scenes/GameScene.unity
     guid: 7fb058980abfe2f49a5984dddb856d24
+  - enabled: 1
+    path: Assets/virtus2/Scenes/EndingScene.unity
+    guid: c3fe8bfe9ddf48247b1479ba4a2e9841
   m_configObjects: {}
