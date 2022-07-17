@@ -165,7 +165,7 @@ public class ArrowKeyManager : MonoBehaviour
 
     public void ReRoll()
     {
-        if (arrowKeys.Count > 4 || OnMove) return;
+        if (OnMove) return;
 
         arrowKeys.Clear();
         while (arrowKeys.Count < 5)
