@@ -50,6 +50,7 @@ public class Enemy : MonoBehaviour
     public void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Player Attack");
+        GameManager.Instance.GameOver();
     }
 
     public void MoveTo(Vector3 dst)
@@ -101,7 +102,7 @@ public class Enemy : MonoBehaviour
         //GameObject obj = Instantiate(JumpEffect, Player.transform.position + Vector3.up * 0.3f, Quaternion.identity);
         Vector3 dir = vec - transform.position;
         //animator = Player.GetComponent<Animator>();
-        SoundManager.Instance.SoundPlay("BB_Jump_Sound", SoundType.SFX, 1, 1);
+        SoundManager.Instance.SoundPlay("Enemy_Move_Sound", SoundType.SFX, 1, 1);
 
         //animator.Play("JumpAnim");
         while (transform.position != vec)

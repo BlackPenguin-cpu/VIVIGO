@@ -68,9 +68,17 @@ public class GameManager : SingletonManager<GameManager>
     {
         for (int i = 0; i < enemies.Count; i++)
         {
-            enemies[i].Pursuit();
+            if (enemies[i].pursuit)
+            {
+                enemies[i].Pursuit();
+                PlayerCanMove = false;
+            }
         }
-        PlayerCanMove = false;
+    }
+
+    public void GameOver()
+    {
+        //
     }
 
     public void EnemyMoveStarted()
