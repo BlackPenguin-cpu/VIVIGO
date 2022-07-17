@@ -77,7 +77,6 @@ public class WorldTilemap : MonoBehaviour
         foreach (var pair in nodes)
         {
             var node = pair.Value;
-            Debug.Log(node.WorldPosition);
             if (node.PlayerSpawn)
             {
                 GameManager.Instance.CreatePlayer(node.WorldPosition);

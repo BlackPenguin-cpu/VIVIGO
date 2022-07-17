@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d89d04d4134662f4b8d90390ccdfa568, type: 3}
   m_Name: "\uD759\uD0C0\uC77C3"
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 7a64ba2b135dd7f44b6dbf139d5055e9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 01752b20eb8a8054382ba71867d52f54, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
@@ -36,3 +36,4 @@ MonoBehaviour:
   m_ColliderType: 1
   Type: 0
   PlayerSpawn: 0
+  EnemyType: 0
