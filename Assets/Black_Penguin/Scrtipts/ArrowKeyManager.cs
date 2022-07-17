@@ -16,10 +16,14 @@ public class ArrowKeyManager : MonoBehaviour
     public GameObject ArrowKeyParentObj;
     public GameObject[] ArrowKeyObj;
 
+    public Animator animator;
+
     private void Start()
     {
         ReRoll();
         PannalSetting();
+
+
         SoundManager.Instance.SoundPlay("BackGroundMusic", SoundType.BGM, 1, 1);
     }
     private void Update()
@@ -30,21 +34,26 @@ public class ArrowKeyManager : MonoBehaviour
     }
     public void MoveInput()
     {
-        if (Input.GetKeyDown(KeyCode.D))
+        float ver = Input.GetAxisRaw("Vertical");
+        float hor = Input.GetAxisRaw("Horizontal");
+        if (Input.anyKeyDown)
         {
-            MoveAction(0);
-        }
-        else if (Input.GetKeyDown(KeyCode.A))
-        {
-            MoveAction(1);
-        }
-        else if (Input.GetKeyDown(KeyCode.W))
-        {
-            MoveAction(2);
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            MoveAction(3);
+            if (hor == -1)
+            {
+                MoveAction(0);
+            }
+            else if (hor == 1)
+            {
+                MoveAction(1);
+            }
+            else if (ver == 1)
+            {
+                MoveAction(2);
+            }
+            else if (ver == -1)
+            {
+                MoveAction(3);
+            }
         }
     }
     private void PannalSetting()
@@ -94,19 +103,9 @@ public class ArrowKeyManager : MonoBehaviour
 
         if (PathfindManager.Instance.CanMove(Player.transform.position + (Vector3)dir))
         {
-            Player.transform.position += (Vector3)dir;
+            StartCoroutine(PlayerMoveAction(Player.transform.position + (Vector3)dir));
             // 얼음 이동
-            while (PathfindManager.Instance.GetTileType(Player.transform.position) == TILE_TYPE.ICE)
-            {
-                if (PathfindManager.Instance.CanMove(Player.transform.position + (Vector3)dir))
-                {
-                    Player.transform.position += (Vector3)dir;
-                }
-                else
-                {
-                    break;
-                }
-            }
+
         }
         if (PathfindManager.Instance.ReachedGoal(Player.transform.position))
         {
@@ -115,6 +114,31 @@ public class ArrowKeyManager : MonoBehaviour
         PannalSetting();
         SoundManager.Instance.SoundPlay("BB_Jump_Sound", SoundType.SFX, 1, 1);
     }
+    void TileCheck()
+    {
+        if (PathfindManager.Instance.GetTileType(Player.transform.position) == TILE_TYPE.ICE)
+        {
+            if (PathfindManager.Instance.CanMove(Player.transform.position + (Vector3)dir))
+            {
+                StartCoroutine(PlayerMoveAction(Player.transform.position + (Vector3)dir));
+            }
+        }
+    }
+    IEnumerator PlayerMoveAction(Vector3 vec)
+    {
+        animator = Player.GetComponent<Animator>();
+
+        animator.Play("JumpAnim");
+        while (Player.transform.position != vec)
+        {
+            Debug.Log("asd");
+            Player.transform.position = Vector3.MoveTowards(Player.transform.position, vec, Time.deltaTime);
+            yield return null;
+        }
+        animator.Play("IdleAnim");
+
+    }
+
     public void ReRoll()
     {
         if (arrowKeys.Count > 4) return;
