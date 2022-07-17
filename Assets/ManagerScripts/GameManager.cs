@@ -5,13 +5,17 @@ public class GameManager : SingletonManager<GameManager>
 {
     public GameObject playerPrefab;
     private Player player;
+    public bool PlayerCanMove = true;
 
     public GameObject[] enemyPrefab;
     private List<Enemy> enemies;
+    public int movingEnemies = 0;
 
     public GameObject keyPrefab;
 
     public GameObject lockPrefab;
+
+    public GameObject wallPrefab;
 
     public ArrowKeyManager arrowKeyManager;
 
@@ -40,6 +44,11 @@ public class GameManager : SingletonManager<GameManager>
     public void CreateLock(Vector3 worldPosition)
     {
         var go = Instantiate(lockPrefab, worldPosition, new Quaternion());
+    }
+
+    public void CreateObstacle(Vector3 worldPosition)
+    {
+        var go = Instantiate(wallPrefab, worldPosition, new Quaternion());
     }
 
     public void PlayerReachedGoal()
@@ -83,7 +92,30 @@ public class GameManager : SingletonManager<GameManager>
     {
         for (int i = 0; i < enemies.Count; i++)
         {
-            enemies[i].Pursuit();
+            if (enemies[i].pursuit)
+            {
+                enemies[i].Pursuit();
+                PlayerCanMove = false;
+            }
+        }
+    }
+
+    public void GameOver()
+    {
+        //
+    }
+
+    public void EnemyMoveStarted()
+    {
+        movingEnemies++;
+    }
+    public void EnemyMoveFinished()
+    {
+        movingEnemies--;
+        if (movingEnemies <= 0)
+        {
+            movingEnemies = 0;
+            PlayerCanMove = true;
         }
     }
 

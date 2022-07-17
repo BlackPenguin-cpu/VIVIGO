@@ -16,7 +16,8 @@ public class WorldTilemap : MonoBehaviour
 
     public Node StartNode;
     public Node GoalNode;
-
+    public List<Node> MonsterNodes;
+    public List<Node> ObjectNodes;
     private void Start()
     {
         int i = 0;
@@ -51,6 +52,9 @@ public class WorldTilemap : MonoBehaviour
                     break;
                 case TILE_TYPE.LOCK:
                     GameManager.Instance.CreateLock(node.WorldPosition);
+                    break;
+                case TILE_TYPE.OBSTACLE:
+                    GameManager.Instance.CreateObstacle(node.WorldPosition);
                     break;
                 default:
                     break;
