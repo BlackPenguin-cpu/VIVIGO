@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/virtus2/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/virtus2/Scenes/TitleScene.unity
     guid: 2b21a2c225a405e4ab261f13ce2fc293
   - enabled: 1
