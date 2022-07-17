@@ -149,7 +149,7 @@ public class GameManager : SingletonManager<GameManager>
             Destroy(locks[i].gameObject);
         }
         Destroy(player.gameObject);
-        Destroy(key.gameObject);
+        if(key != null) Destroy(key.gameObject);
         enemies.Clear();
         walls.Clear();
         locks.Clear();
