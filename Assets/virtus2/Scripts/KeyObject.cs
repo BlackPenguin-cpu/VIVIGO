@@ -12,7 +12,7 @@ public class KeyObject : MonoBehaviour
         if (collision.tag == "Player")
         {
             var player = collision.gameObject.GetComponent<Player>();
-            player.HasKey = true;
+            GameManager.Instance.PlayerHasKey();
 
             Destroy(this.gameObject);
         }

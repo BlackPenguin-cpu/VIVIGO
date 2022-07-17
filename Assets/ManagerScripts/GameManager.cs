@@ -9,6 +9,9 @@ public class GameManager : SingletonManager<GameManager>
     private Player player;
     public bool PlayerCanMove = true;
 
+    public GameObject grandmaPrefab;
+    private GameObject grandma;
+
     public GameObject[] enemyPrefab;
     private List<Enemy> enemies;
     public int movingEnemies = 0;
@@ -16,6 +19,7 @@ public class GameManager : SingletonManager<GameManager>
     public GameObject keyPrefab;
 
     public GameObject lockPrefab;
+    private List<LockObject> locks;
 
     public GameObject[] wallPrefab;
     private List<GameObject> walls;
@@ -28,6 +32,7 @@ public class GameManager : SingletonManager<GameManager>
         base.Awake();
         enemies = new List<Enemy>();
         walls = new List<GameObject>();
+        locks = new List<LockObject>();
     }
     public void CreatePlayer(Vector3 worldPosition)
     {
@@ -35,6 +40,10 @@ public class GameManager : SingletonManager<GameManager>
         arrowKeyManager.Player = player.gameObject;
     }
 
+    public void CreateGrandma(Vector3 worldPosition)
+    {
+        grandma = Instantiate(grandmaPrefab, worldPosition, new Quaternion());
+    }
     public void CreateMonster(Vector3 worldPosition, ENEMY_TYPE enemyType)
     {
         var go = Instantiate(enemyPrefab[(int)enemyType], worldPosition, new Quaternion()).GetComponent<Enemy>();
@@ -49,6 +58,7 @@ public class GameManager : SingletonManager<GameManager>
     public void CreateLock(Vector3 worldPosition)
     {
         var go = Instantiate(lockPrefab, worldPosition, new Quaternion());
+        locks.Add(go.GetComponent<LockObject>());
     }
 
     public void CreateObstacle(Vector3 worldPosition)
@@ -61,8 +71,17 @@ public class GameManager : SingletonManager<GameManager>
     public void PlayerReachedGoal()
     {
         Debug.Log("플레이어 목표 타일 도달");
-        StartCoroutine(ClearEffect());
-        // TODO: 스테이지또는 적 오브젝트를 Destroy?
+        GameReset();
+        GameStage.Instance.NextStage();
+    }
+
+    public void PlayerHasKey()
+    {
+        player.HasKey = true;
+        for(int i=0; i<locks.Count; i++)
+        {
+            locks[i].Unlock();
+        }
     }
     IEnumerator ClearEffect()
     {
@@ -88,12 +107,23 @@ public class GameManager : SingletonManager<GameManager>
     /// </summary>
     public void GameReset()
     {
+        player.HasKey = false;
+        PlayerCanMove = true;
+        Destroy(grandma);
         PathfindManager.Instance.ClearExploredTiles();
-        Destroy(FindObjectOfType<Player>().gameObject);
-        foreach (Enemy enemy in FindObjectsOfType<Enemy>())
+        for (int i = 0; i < enemies.Count; i++)
         {
-            Destroy(enemy.gameObject);
+            Destroy(enemies[i].gameObject);
         }
+
+        for (int i = 0; i < walls.Count; i++)
+        {
+            Destroy(walls[i].gameObject);
+        }
+        Destroy(player.gameObject);
+        enemies.Clear();
+        walls.Clear();
+        
     }
     public Player GetPlayerObject()
     {
@@ -116,8 +146,15 @@ public class GameManager : SingletonManager<GameManager>
     public void GameOver()
     {
         //
+        GameReset();
+        GameRestart();
     }
 
+    public void GameRestart()
+    {
+        
+        GameStage.Instance.GetCurrentTilemap().SpawnObjects();
+    }
     public void EnemyMoveStarted()
     {
         Debug.Log("enemy move started");
