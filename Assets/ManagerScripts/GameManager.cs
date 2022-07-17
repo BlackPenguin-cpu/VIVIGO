@@ -20,6 +20,7 @@ public class GameManager : SingletonManager<GameManager>
     public GameObject vinePrefab;
 
     public GameObject keyPrefab;
+    private GameObject key;
 
     public GameObject lockPrefab;
     private List<LockObject> locks;
@@ -70,6 +71,7 @@ public class GameManager : SingletonManager<GameManager>
     public void CreateKey(Vector3 worldPosition)
     {
         var go = Instantiate(keyPrefab, worldPosition, new Quaternion());
+        key = go;
     }
 
     public void CreateLock(Vector3 worldPosition)
@@ -141,7 +143,13 @@ public class GameManager : SingletonManager<GameManager>
         {
             Destroy(walls[i].gameObject);
         }
+
+        for (int i = 0; i < locks.Count; i++)
+        {
+            Destroy(locks[i].gameObject);
+        }
         Destroy(player.gameObject);
+        Destroy(key.gameObject);
         enemies.Clear();
         walls.Clear();
         locks.Clear();
