@@ -17,6 +17,11 @@ public class GameManager : SingletonManager<GameManager>
 
     public ArrowKeyManager arrowKeyManager;
 
+    private void Awake()
+    {
+        base.Awake();
+        enemies = new List<Enemy>();
+    }
     public void CreatePlayer(Vector3 worldPosition)
     {
         player = Instantiate(playerPrefab, worldPosition, new Quaternion(0, 0, 0, 0)).GetComponent<Player>();
@@ -47,6 +52,14 @@ public class GameManager : SingletonManager<GameManager>
     public Player GetPlayerObject()
     {
         return player;
+    }
+
+    public void NextTurn()
+    {
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            enemies[i].Pursuit();
+        }
     }
     
     
