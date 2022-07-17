@@ -160,9 +160,9 @@ public class ArrowKeyManager : MonoBehaviour
             yield return null;
         }
         animator.Play("IdleAnim");
+        OnMove = false;
         Destroy(obj);
         TileCheck(dir);
-        OnMove = false;
         GameManager._Instance.NextTurn();
     }
 
